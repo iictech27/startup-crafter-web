@@ -1,17 +1,87 @@
 import signup_image from "../assets/images/signup_image.png";
 import loginsvg from "../assets/vectors/loginsvg.png";
 import { Input, InputButton } from "../components/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google_icon from "../assets/icons/google_icon.png";
 import github_icon from "../assets/icons/github_icon.png";
 import styles from "../style";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const initialFormValues = { fullName: "", email: "", password: "" };
+
+  const [signupFormValues, setSignupFormValues] = useState(initialFormValues);
+
+  const [validationError, setValidationError] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setSignupFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    // Clear the validation error for the current field if it becomes valid
+    if (value !== "") {
+      setValidationError((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { fullName, email, password } = signupFormValues;
+    if (fullName === "") {
+      setValidationError({
+        ...validationError,
+        fullName: "Name is required !",
+      });
+      return;
+    }
+    if (email === "") {
+      setValidationError({ ...validationError, email: "Email is required !" });
+      return;
+    }
+    if (password === "") {
+      setValidationError({
+        ...validationError,
+        password: "Password is required !",
+      });
+      return;
+    }
+    console.log(signupFormValues);
+
+    const res = axios
+      .post("/api/v1/user/register", signupFormValues, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        navigate("/user-login");
+      })
+      .catch((error) => {
+        console.log(error);
+        setValidationError({
+          ...validationError,
+          customError: error.response.data.message,
+        });
+      });
+
+    console.log(res);
+    setSignupFormValues(initialFormValues);
+  };
+
   return (
     <>
       <section
         className={`min-h-screen px-[2rem] md:px-[6rem] md:pl-[8rem] lg:px-[3rem] lg:pl-[12rem] ${styles.paddingY} ${styles.flexCenter} relative overflow-y-hidden`}
       >
+        {/* signup form */}
         <div
           className={`relative flex justify-center items-center flex-wrap w-full z-10`}
         >
@@ -61,20 +131,33 @@ export default function Signup() {
           </div>
           <div className="relative px-6 py-6 lg:py-14 rounded-3xl w-full lg:w-1/2 flex flex-col gap-y-8 shadow-md">
             <h2 className={`text-left ${styles.signHead}`}>Welcome</h2>
-
-            <form>
-              <Input label="Full name" type="text" placeholder="John Doe" />
+            <form onSubmit={handleSubmit}>
               <Input
-                label="Email"
+                type="text"
+                name="fullName"
+                value={signupFormValues.fullName}
+                onChange={handleChange}
+                placeholder="Enter your name"
+              />
+              <span className="error-msg">{validationError?.fullName}</span>
+              <Input
                 type="email"
-                placeholder="Enter your Email or phone number"
+                name="email"
+                value={signupFormValues.email}
+                onChange={handleChange}
+                placeholder="Enter email address"
               />
+              <span className="error-msg">{validationError?.email}</span>
               <Input
-                label="Password"
                 type="password"
-                placeholder="Enter your password"
+                name="password"
+                value={signupFormValues.password}
+                onChange={handleChange}
+                placeholder="Enter a password"
               />
-
+              <span className="error-msg">
+                {validationError?.password || validationError?.customError}
+              </span>
               <InputButton title="Create account" />
             </form>
             <p className="text-center">
@@ -97,6 +180,7 @@ export default function Signup() {
             </div>
           </div>
         </div>
+        {/* signup page svg */}
         <div className="absolute left-0 bottom-0 -z-50">
           <img src={loginsvg} alt="login svg" className="w-full h-full" />
         </div>
