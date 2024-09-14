@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-export default function Input({ label, type, className }) {
+export default function Input({
+  type,
+  name,
+  placeholder,
+  value,
+  onChange,
+  className,
+}) {
   const [isPasswordOpen, setPasswordOpen] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -12,27 +19,37 @@ export default function Input({ label, type, className }) {
       <div className={`mb-4 w-full relative ${className}`}>
         <label
           className="ml-2 text-base sm:text-lg md:text-xl capitalize"
-          htmlFor="form1Example13"
+          htmlFor={name}
         >
-          {label}
+          {name.toUpperCase()}
         </label>
 
         {type === "password" ? (
           <>
             <input
               type={!isPasswordOpen ? "text" : type}
-              id="form1Example13"
+              id={name}
+              name={name}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
               className={`mt md:mt-2 w-full p-1.5 md:p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring`}
             />
             <i
-              className={`fa-solid ${isPasswordOpen ? "fa-eye-slash" : "fa-eye"} text-gray-600 absolute top-[60%] right-5 cursor-pointer`}
+              className={`fa-solid ${
+                isPasswordOpen ? "fa-eye-slash" : "fa-eye"
+              } text-gray-600 absolute top-[60%] right-5 cursor-pointer`}
               onClick={togglePasswordVisibility}
             ></i>
           </>
         ) : (
           <input
             type={type}
-            id="form1Example13"
+            id={name}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
             className={`mt md:mt-2 w-full p-1.5 md:p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring`}
           />
         )}
@@ -61,7 +78,10 @@ export function FileUpload({ label, className, content }) {
     <>
       <label
         htmlFor={label.replace(" ", "_")}
-        className={`col-span-2 p-2 border-2 border-orange-700 rounded-md text-orange-700 font-semibold relative after:absolute after:right-0 after:top-10 ${content === "poster" && "after:content-['pdf,png,jpeg'] after:tracking-wider after:ml-0.5 after:text-gray-500 after:font-normal"} ${className}`}
+        className={`col-span-2 p-2 border-2 border-orange-700 rounded-md text-orange-700 font-semibold relative after:absolute after:right-0 after:top-10 ${
+          content === "poster" &&
+          "after:content-['pdf,png,jpeg'] after:tracking-wider after:ml-0.5 after:text-gray-500 after:font-normal"
+        } ${className}`}
       >
         <i className="fa-solid fa-upload mr-2"></i>
         {label}

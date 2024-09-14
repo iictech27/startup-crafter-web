@@ -78,16 +78,16 @@ export default function Header() {
       </div>
       {/* Login Button */}
       <div className="hidden md:flex items-center">
-        {/* <Button
+        <Button
           title="Login"
           onHandleClick={openMenu}
           loginOption={isLoginMenuOpen}
           setLoginMenuOpen={setLoginMenuOpen}
-        /> */}
+        />
 
-        <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
+        {/* <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
           <span className="font-medium text-gray-600">RD</span>
-        </div>
+        </div> */}
       </div>
       {/* For smaller screens */}
       <div className="md:hidden sm:basis-4/6 lg:basis-0 flex justify-end">
@@ -113,12 +113,12 @@ export default function Header() {
               </li>
             ))}
             {/* Login Button */}
-            {/* <Button
+            <Button
               title="Login"
               onHandleClick={openMenu}
               loginOption={isLoginMenuOpen}
               setLoginMenuOpen={setLoginMenuOpen}
-            /> */}
+            />
           </ul>
         </div>
       )}

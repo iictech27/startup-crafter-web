@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 //internal imports
 const defaultErrorHandler = require("./middlewares/defaultErrorHandler");
@@ -9,11 +10,17 @@ const testRouter = require("./routes/test.route");
 
 const app = express();
 
+//cors
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
 //request parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-//set view engine
 
 //set static folder
 app.use(express.static(path.join(__dirname, "public")));

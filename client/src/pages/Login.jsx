@@ -2,19 +2,80 @@
 import login_image from "../assets/images/login_image.jpg";
 import loginsvg from "../assets/vectors/loginsvg.png";
 import { Input, InputButton } from "../components/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google_icon from "../assets/icons/google_icon.png";
 import login_texture1 from "../assets/vectors/login_texture1.png";
 import login_texture2 from "../assets/vectors/login_texture2.png";
 import logo from "../assets/logo.png";
 import styles from "../style";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const initialFormValues = { email: "", password: "" };
+
+  const [loginFormValues, setLoginFormValues] = useState(initialFormValues);
+
+  const [validationError, setValidationError] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setLoginFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    // Clear the validation error for the current field if it becomes valid
+    if (value !== "") {
+      setValidationError((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = loginFormValues;
+    if (email === "") {
+      setValidationError({ ...validationError, email: "Email is required !" });
+      return;
+    }
+    if (password === "") {
+      setValidationError({
+        ...validationError,
+        password: "Password is required !",
+      });
+      return;
+    }
+    console.log(loginFormValues);
+
+    const res = axios
+      .post("/api/v1/user/login", loginFormValues, { withCredentials: true })
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        setValidationError({
+          ...validationError,
+          customError: error.response.data.message,
+        });
+      });
+
+    console.log(res);
+    setLoginFormValues(initialFormValues);
+  };
+
   return (
     <>
       <section
         className={`min-h-screen px-[2rem] md:px-[6rem] md:pl-[8rem] lg:px-[8rem] lg:pl-[12rem] ${styles.paddingY} ${styles.flexCenter} relative overflow-y-hidden`}
       >
+        {/* logo */}
         <Link to="/">
           <img
             src={logo}
@@ -22,6 +83,7 @@ export default function Login() {
             className="absolute top-8 left-20 w-[100px] h-[34px] md:w-[150px] md:h-[50px]"
           />
         </Link>
+        {/* login form */}
         <div className={`relative ${styles.flexCenter} flex-wrap w-full z-10`}>
           <div
             className={`${styles.flexCenter} lg:justify-end w-full h-auto lg:w-1/3`}
@@ -37,18 +99,25 @@ export default function Login() {
               Nice to see you again
             </h2>
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <Input
-                label="Email"
                 type="email"
-                placeholder="Email or phone number"
+                name="email"
+                value={loginFormValues.email}
+                onChange={handleChange}
+                placeholder="Enter email address"
               />
+              <span className="error-msg">{validationError?.email}</span>
               <Input
-                label="Password"
                 type="password"
+                name="password"
+                value={loginFormValues.password}
+                onChange={handleChange}
                 placeholder="Enter password"
               />
-
+              <span className="error-msg">
+                {validationError?.password || validationError?.customError}
+              </span>
               <div className="flex justify-around items-center mb-4">
                 <div className="form-check">
                   <input
@@ -63,9 +132,7 @@ export default function Login() {
                 <Link to="/">Forgot password?</Link>
               </div>
 
-              <Link to="/">
-                <InputButton title="Sign in" />
-              </Link>
+              <InputButton title="Sign in" />
 
               <div className={`${styles.flexCenter} my-2 md:my-4`}>
                 <p className="text-center font-bold mx-3 mb-0">OR</p>
@@ -95,6 +162,7 @@ export default function Login() {
             />
           </div>
         </div>
+        {/* login page svg */}
         <div className="absolute left-0 bottom-0 -z-50">
           <img src={loginsvg} alt="login svg" className="w-full h-full" />
         </div>

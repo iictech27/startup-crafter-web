@@ -6,9 +6,11 @@ import tailwindcss from "tailwindcss";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   optimizeDeps: {
-    include: ['tailwindcss'],
+    include: ["tailwindcss"],
   },
   server: {
-    host: "0.0.0.0",
+    proxy: {
+      "/api/v1": "http://localhost:8000",
+    },
   },
 });
