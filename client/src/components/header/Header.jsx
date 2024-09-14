@@ -5,8 +5,10 @@ import Button from "../Button.jsx";
 import Hamburger from "hamburger-react";
 import { useEffect, useState } from "react";
 import styles from "../../style.js";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const user = useSelector((store) => store.user.users);
   const [isLoginMenuOpen, setLoginMenuOpen] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [isNavFixed, setNavFixed] = useState(false);
@@ -76,18 +78,21 @@ export default function Header() {
           ))}
         </ul>
       </div>
-      {/* Login Button */}
       <div className="hidden md:flex items-center">
-        <Button
-          title="Login"
-          onHandleClick={openMenu}
-          loginOption={isLoginMenuOpen}
-          setLoginMenuOpen={setLoginMenuOpen}
-        />
-
-        {/* <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
-          <span className="font-medium text-gray-600">RD</span>
-        </div> */}
+        {user ? (
+          //user icon
+          <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
+            <span className="font-medium text-gray-600">{user.fullName}</span>
+          </div>
+        ) : (
+          //login button
+          <Button
+            title="Login"
+            onHandleClick={openMenu}
+            loginOption={isLoginMenuOpen}
+            setLoginMenuOpen={setLoginMenuOpen}
+          />
+        )}
       </div>
       {/* For smaller screens */}
       <div className="md:hidden sm:basis-4/6 lg:basis-0 flex justify-end">
@@ -112,13 +117,22 @@ export default function Header() {
                 </NavLink>
               </li>
             ))}
-            {/* Login Button */}
-            <Button
-              title="Login"
-              onHandleClick={openMenu}
-              loginOption={isLoginMenuOpen}
-              setLoginMenuOpen={setLoginMenuOpen}
-            />
+            {user ? (
+              //user icon
+              <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
+                <span className="font-medium text-gray-600">
+                  {user.fullName}
+                </span>
+              </div>
+            ) : (
+              //login button
+              <Button
+                title="Login"
+                onHandleClick={openMenu}
+                loginOption={isLoginMenuOpen}
+                setLoginMenuOpen={setLoginMenuOpen}
+              />
+            )}
           </ul>
         </div>
       )}

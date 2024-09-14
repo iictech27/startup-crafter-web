@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/users/userSlice";
 
 export default function useAuth({ authType, initialFormValues }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const [validationError, setValidationError] = useState({
@@ -56,11 +59,15 @@ export default function useAuth({ authType, initialFormValues }) {
       .post(`/api/v1/user/${authType}`, formValues, { withCredentials: true })
       .then((res) => {
         console.log(res);
-        authType === "login"
-          ? navigate("/")
-          : authType === "register"
-          ? navigate("/user-login")
-          : navigate("");
+        //user dispatch to global state and redirecting based on auth type
+        if (authType === "login") {
+          dispatch(setUser(res.data.data));
+          navigate("/");
+        } else if (authType === "register") {
+          navigate("/user-login");
+        } else {
+          navigate("");
+        }
       })
       .catch((error) => {
         console.log(error);
