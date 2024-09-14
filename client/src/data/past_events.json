@@ -1,0 +1,20 @@
+[
+  {
+    "image": "../src/assets/images/events1.png",
+    "title": "Hult Prize",
+    "date": "16 Jan 2023",
+    "description": "little about us section"
+  },
+  {
+    "image": "../src/assets/images/events1.png",
+    "title": "QZone",
+    "date": "16 Jan 2023",
+    "description": "little about us section"
+  },
+  {
+    "image": "../src/assets/images/events1.png",
+    "title": "Mock IPl",
+    "date": "16 Jan 2023",
+    "description": "little about us section"
+  }
+]

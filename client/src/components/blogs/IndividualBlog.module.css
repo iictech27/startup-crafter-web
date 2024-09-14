@@ -1,0 +1,10 @@
+i{
+  font-size:1.4rem;
+  cursor:pointer;
+}
+
+@media screen and (max-width: 640px) {
+  i{
+    font-size:1.1rem;
+  }
+}

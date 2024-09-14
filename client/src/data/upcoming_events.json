@@ -1,0 +1,16 @@
+[
+  {
+    "image": "../src/assets/images/events1.png",
+    "title": "Hack Your Way",
+    "startTime": "Saturday 11.30 AM",
+    "endTime": "Sunday 11.30 AM",
+    "registerClosesAt": "Thrusday 12.00 A.M"
+  },
+  {
+    "image": "../src/assets/images/events1.png",
+    "title": "Bizz plan",
+    "startTime": "Monday 10.00 AM",
+    "endTime": "Monday 10.00 pM",
+    "registerClosesAt": "Friday 12.00 A.M"
+  }
+]

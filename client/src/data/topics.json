@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "title": "Programming languages",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic1.png"
+  },
+  {
+    "id": "2",
+    "title": "Graphics Designing",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic4.jpg"
+  },
+  {
+    "id": "3",
+    "title": "Mobile app development",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic2.png"
+  },
+  {
+    "id": "4",
+    "title": "Graphics Designing",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic4.jpg"
+  },
+  {
+    "id": "5",
+    "title": "Programming languages",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic1.png"
+  },
+  {
+    "id": "6",
+    "title": "Programming languages",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic1.png"
+  },
+  {
+    "id": "7",
+    "title": "Mobile app development",
+    "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+    "image_link": "../src/assets/images/topic2.png"
+  }
+]

@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .gradientBtnColor {
+    @apply bg-gradient-to-l from-gradientStop1 from-0% to-gradientStop2 to-100%;
+  }
+  .gradientBgColor {
+    @apply bg-gradient-to-l from-[#072988] from-20% to-[#000041] to-80%;
+  }
+}

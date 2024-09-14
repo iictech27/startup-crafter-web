@@ -1,0 +1,66 @@
+.attachments{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+
+
+.attachments a{
+  text-decoration:none;
+  color:black;
+  font-weight:600;
+  border:1px solid black;
+  padding:2px 15px;
+  border-radius:20px;
+}
+
+
+.ideaOwner{
+    display:flex;
+    align-items:center;
+  gap:30px;
+
+}
+
+
+.ideaOwner img{
+  border-radius:100%;
+  width:40px;
+}
+
+.attachment{
+  display:flex;
+  gap:20px;
+  align-items:center;
+  padding-right:30px;
+}
+
+.attachments button{
+  background:linear-gradient(to right, #67BDFF,#005394);
+  border:none;
+  border-radius:20px;
+  color: white;
+  padding:5px 10px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  transition:box-shadow 0.3s ease-in-out;
+  position:relative;
+  right:10px;
+}
+
+.attachments button:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.idea{
+  background-color:white;
+  border-radius:10px;
+  padding:10px;
+}
+
+.ideaOwner h1{
+  font-size:14px;
+}

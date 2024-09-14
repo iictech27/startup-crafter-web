@@ -1,0 +1,16 @@
+.quill {
+  .ql-toolbar {
+    background-color:#c9c5c5;
+    display:flex;
+    justify-content:end;
+    flex-wrap:wrap;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .quill{
+  .ql-toolbar{
+    justify-content:start
+  }
+  }
+}

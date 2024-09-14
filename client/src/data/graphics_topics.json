@@ -1,0 +1,79 @@
+    {
+        "id": "1",
+        "title": "Introduction to Graphic Design",
+        "description": "Learn the basics of graphic design, including principles, color theory, and typography.",
+        "image_link": "https://example.com/images/intro_to_graphic_design.jpg"
+    },
+    {
+        "id": "2",
+        "title": "Adobe Photoshop for Beginners",
+        "description": "Master the essential tools and techniques in Adobe Photoshop to create stunning visuals.",
+        "image_link": "https://example.com/images/photoshop_beginners.jpg"
+    },
+    {
+        "id": "3",
+        "title": "Illustrator Essentials",
+        "description": "Get hands-on experience with Adobe Illustrator, focusing on vector graphics and design.",
+        "image_link": "https://example.com/images/illustrator_essentials.jpg"
+    },
+    {
+        "id": "4",
+        "title": "Typography and Branding",
+        "description": "Explore the art of typography and its role in creating effective branding materials.",
+        "image_link": "https://example.com/images/typography_branding.jpg"
+    },
+    {
+        "id": "5",
+        "title": "UI/UX Design Fundamentals",
+        "description": "Understand the principles of UI/UX design and how to create user-friendly interfaces.",
+        "image_link": "https://example.com/images/ui_ux_fundamentals.jpg"
+    },
+    {
+        "id": "6",
+        "title": "Advanced Photoshop Techniques",
+        "description": "Enhance your Photoshop skills with advanced techniques for professional-grade designs.",
+        "image_link": "https://example.com/images/advanced_photoshop.jpg"
+    },
+    {
+        "id": "7",
+        "title": "Motion Graphics with After Effects",
+        "description": "Learn to create dynamic motion graphics and animations using Adobe After Effects.",
+        "image_link": "https://example.com/images/motion_graphics_after_effects.jpg"
+    },
+    {
+        "id": "8",
+        "title": "Web Design with HTML and CSS",
+        "description": "Build beautiful, responsive websites using HTML and CSS from scratch.",
+        "image_link": "https://example.com/images/web_design_html_css.jpg"
+    },
+    {
+        "id": "9",
+        "title": "Digital Illustration Masterclass",
+        "description": "Develop your digital illustration skills using various tools and techniques.",
+        "image_link": "https://example.com/images/digital_illustration.jpg"
+    },
+    {
+        "id": "10",
+        "title": "3D Modeling for Beginners",
+        "description": "An introductory course to 3D modeling using popular software like Blender.",
+        "image_link": "https://example.com/images/3d_modeling_beginners.jpg"
+    },
+    {
+        "id": "11",
+        "title": "UI-UX Design",
+        "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+        "image_link": "../src/assets/images/graphicImg1.jpg"
+    },
+    {
+        "id": "12",
+        "title": "Vector Graphics",
+        "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+        "image_link": "src/assets/images/graphicImg2.png"
+    },
+    {
+        "id": "3",
+        "title": "Motion Graphics",
+        "description": "This topic covers various programming languages used for software development, including their syntax, features, and applications. It provides tutorials, guides, and resources for learning and mastering programming languages like Python, Java, C++, JavaScript, etc.",
+        "image_link": "src/assets/images/graphicImg3.jpg"
+    }
+]

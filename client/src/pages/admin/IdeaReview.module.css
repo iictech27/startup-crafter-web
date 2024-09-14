@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 10px;
+  width: 75%;
+  margin-left: 25%; /* Ensure it leaves space for the fixed left section */
+}
+
+.ideas {
+  background-color: #F6F7FE;
+  padding: 35px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap:100px;
+  width:70vw;
+}
+
+.categories {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
+.category_slider {
+  display: flex;
+  gap: 50px;
+}
+
+.category_slider span {
+  display: inline-block;
+  padding: 5px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.header h1 {
+  font-size: 12px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .left {
+    display: none;
+  }
+
+  .right {
+    width: 100vw;
+    justify-content: center;
+    margin-left: 0; /* Remove the margin to center the content */
+  }
+
+  .categories {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+  }
+
+
+  .category {
+    display: flex;
+    align-items: center;
+    gap:10px;
+    width:70vw;
+  }
+
+  .category-slider {
+    display: flex;
+    gap: 10px;
+  }
+
+  .header {
+    align-self: end;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right:30px;
+  }
+
+
+}

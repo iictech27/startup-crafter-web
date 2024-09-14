@@ -1,0 +1,62 @@
+[
+    {
+        "id": "1",
+        "title": "Introduction to Python",
+        "description": "Learn the basics of Python programming language in this beginner-friendly course.",
+        "image_link": "../src/assets/images/study_material/python.png"
+    },
+    {
+        "id": "2",
+        "title": "Web Development with HTML, CSS, and JavaScript",
+        "description": "Build responsive websites using HTML, CSS, and JavaScript from scratch.",
+        "image_link": "../src/assets/images/study_material/webdev.jpg"
+    },
+    {
+        "id": "3",
+        "title": "Data Science with R",
+        "description": "Explore data analysis and visualization techniques using R programming language.",
+        "image_link": "../src/assets/images/study_material/data_science.jpg"
+    },
+    {
+        "id": "4",
+        "title": "Machine Learning Fundamentals",
+        "description": "Understand the fundamentals of machine learning and its applications.",
+        "image_link": "../src/assets/images/study_material/ml.jpeg"
+    },
+    {
+        "id": "5",
+        "title": "Introduction to Cloud Computing",
+        "description": "Get started with cloud computing and understand its key concepts.",
+        "image_link": "../src/assets/images/study_material/cc.jpg"
+    },
+    {
+        "id": "6",
+        "title": "Mobile App Development with Flutter",
+        "description": "Learn to develop cross-platform mobile applications using Flutter framework.",
+        "image_link": "../src/assets/images/study_material/flutter.jpg"
+    },
+    {
+        "id": "7",
+        "title": "Cybersecurity Basics",
+        "description": "Gain essential knowledge about cybersecurity and how to protect against threats.",
+        "image_link": "../src/assets/images/study_material/cs.jpeg"
+    },
+    {
+        "id": "8",
+        "title": "Artificial Intelligence for Beginners",
+        "description": "An introductory course on artificial intelligence and its real-world applications.",
+        "image_link": "../src/assets/images/study_material/ml.jpeg"
+    },
+    {
+        "id": "9",
+        "title": "Advanced Java Programming",
+        "description": "Enhance your Java programming skills with advanced concepts and techniques.",
+        "image_link": "../src/assets/images/study_material/java.jpg"
+    },
+    {
+        "id": "10",
+        "title": "Introduction to Blockchain",
+        "description": "Understand the basics of blockchain technology and its potential uses.",
+        "image_link": "../src/assets/images/study_material/blockchain.jpeg"
+    }
+]
