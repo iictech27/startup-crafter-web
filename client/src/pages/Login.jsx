@@ -10,65 +10,14 @@ import logo from "../assets/logo.png";
 import styles from "../style";
 import { useState } from "react";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
-  const navigate = useNavigate();
   const initialFormValues = { email: "", password: "" };
-
-  const [loginFormValues, setLoginFormValues] = useState(initialFormValues);
-
-  const [validationError, setValidationError] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setLoginFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-
-    // Clear the validation error for the current field if it becomes valid
-    if (value !== "") {
-      setValidationError((prevErrors) => ({
-        ...prevErrors,
-        [name]: "",
-      }));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { email, password } = loginFormValues;
-    if (email === "") {
-      setValidationError({ ...validationError, email: "Email is required !" });
-      return;
-    }
-    if (password === "") {
-      setValidationError({
-        ...validationError,
-        password: "Password is required !",
-      });
-      return;
-    }
-    console.log(loginFormValues);
-
-    const res = axios
-      .post("/api/v1/user/login", loginFormValues, { withCredentials: true })
-      .then((res) => {
-        console.log(res);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        setValidationError({
-          ...validationError,
-          customError: error.response.data.message,
-        });
-      });
-
-    console.log(res);
-    setLoginFormValues(initialFormValues);
-  };
+  const [formValues, handleChange, handleSubmit, validationError] = useAuth({
+    authType: "login",
+    initialFormValues,
+  });
 
   return (
     <>
@@ -103,7 +52,7 @@ export default function Login() {
               <Input
                 type="email"
                 name="email"
-                value={loginFormValues.email}
+                value={formValues.email}
                 onChange={handleChange}
                 placeholder="Enter email address"
               />
@@ -111,7 +60,7 @@ export default function Login() {
               <Input
                 type="password"
                 name="password"
-                value={loginFormValues.password}
+                value={formValues.password}
                 onChange={handleChange}
                 placeholder="Enter password"
               />

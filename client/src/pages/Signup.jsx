@@ -5,76 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import google_icon from "../assets/icons/google_icon.png";
 import github_icon from "../assets/icons/github_icon.png";
 import styles from "../style";
-import axios from "axios";
-import { useState } from "react";
+import useAuth from "../hooks/useAuth";
 
 export default function Signup() {
-  const navigate = useNavigate();
   const initialFormValues = { fullName: "", email: "", password: "" };
 
-  const [signupFormValues, setSignupFormValues] = useState(initialFormValues);
-
-  const [validationError, setValidationError] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setSignupFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-
-    // Clear the validation error for the current field if it becomes valid
-    if (value !== "") {
-      setValidationError((prevErrors) => ({
-        ...prevErrors,
-        [name]: "",
-      }));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { fullName, email, password } = signupFormValues;
-    if (fullName === "") {
-      setValidationError({
-        ...validationError,
-        fullName: "Name is required !",
-      });
-      return;
-    }
-    if (email === "") {
-      setValidationError({ ...validationError, email: "Email is required !" });
-      return;
-    }
-    if (password === "") {
-      setValidationError({
-        ...validationError,
-        password: "Password is required !",
-      });
-      return;
-    }
-    console.log(signupFormValues);
-
-    const res = axios
-      .post("/api/v1/user/register", signupFormValues, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        navigate("/user-login");
-      })
-      .catch((error) => {
-        console.log(error);
-        setValidationError({
-          ...validationError,
-          customError: error.response.data.message,
-        });
-      });
-
-    console.log(res);
-    setSignupFormValues(initialFormValues);
-  };
+  const [formValues, handleChange, handleSubmit, validationError] = useAuth({
+    authType: "register",
+    initialFormValues,
+  });
 
   return (
     <>
@@ -135,7 +74,7 @@ export default function Signup() {
               <Input
                 type="text"
                 name="fullName"
-                value={signupFormValues.fullName}
+                value={formValues.fullName}
                 onChange={handleChange}
                 placeholder="Enter your name"
               />
@@ -143,7 +82,7 @@ export default function Signup() {
               <Input
                 type="email"
                 name="email"
-                value={signupFormValues.email}
+                value={formValues.email}
                 onChange={handleChange}
                 placeholder="Enter email address"
               />
@@ -151,7 +90,7 @@ export default function Signup() {
               <Input
                 type="password"
                 name="password"
-                value={signupFormValues.password}
+                value={formValues.password}
                 onChange={handleChange}
                 placeholder="Enter a password"
               />
