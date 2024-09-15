@@ -35,6 +35,7 @@
     "cors": "^2.8.5",
     "hamburger-react": "^2.5.0",
     "lazy": "^1.0.11",
+    "react-icons": "^5.3.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-javascript": "file:",
     "react-quill": "^2.0.0",

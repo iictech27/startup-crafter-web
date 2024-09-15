@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function Input({
+  label,
   type,
   name,
   placeholder,
@@ -21,7 +22,7 @@ export default function Input({
           className="ml-2 text-base sm:text-lg md:text-xl capitalize"
           htmlFor={name}
         >
-          {name.toUpperCase()}
+          {label ? label : name.toUpperCase()}
         </label>
 
         {type === "password" ? (
