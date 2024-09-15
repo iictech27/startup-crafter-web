@@ -13,6 +13,7 @@ export default function useAuth({ authType, initialFormValues }) {
     email: "",
     password: "",
     fullName: "",
+    adminName: "",
     customError: "",
   });
 
@@ -35,16 +36,32 @@ export default function useAuth({ authType, initialFormValues }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (authType === "register" && formValues.fullName === "") {
-      setValidationError({
-        ...validationError,
-        fullName: "Name is required !",
-      });
-      return;
-    }
-    if (formValues.email === "") {
-      setValidationError({ ...validationError, email: "Email is required !" });
-      return;
+    if (authType === "admin-login") {
+      if (formValues.adminName === "") {
+        setValidationError({
+          ...validationError,
+          adminName: "Admin name is required !",
+        });
+        return;
+      }
+    } else {
+      if (authType === "user-register" && formValues.fullName === "") {
+        setValidationError({
+          ...validationError,
+          fullName: "Name is required !",
+        });
+        return;
+      }
+      if (
+        authType === "user-register" ||
+        (authType === "user-login" && formValues.email === "")
+      ) {
+        setValidationError({
+          ...validationError,
+          email: "Email is required !",
+        });
+        return;
+      }
     }
     if (formValues.password === "") {
       setValidationError({
@@ -53,18 +70,21 @@ export default function useAuth({ authType, initialFormValues }) {
       });
       return;
     }
+
     console.log(formValues);
 
     const res = axios
-      .post(`/api/v1/user/${authType}`, formValues, { withCredentials: true })
+      .post(`/api/v1/${authType}`, formValues, { withCredentials: true })
       .then((res) => {
         console.log(res);
         //user dispatch to global state and redirecting based on auth type
-        if (authType === "login") {
+        if (authType === "user-login") {
           dispatch(setUser(res.data.data));
           navigate("/");
-        } else if (authType === "register") {
+        } else if (authType === "user-register") {
           navigate("/user-login");
+        } else if (authType === "admin-login") {
+          navigate("/admin");
         } else {
           navigate("");
         }

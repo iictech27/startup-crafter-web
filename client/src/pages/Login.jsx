@@ -15,7 +15,7 @@ import useAuth from "../hooks/useAuth";
 export default function Login() {
   const initialFormValues = { email: "", password: "" };
   const [formValues, handleChange, handleSubmit, validationError] = useAuth({
-    authType: "login",
+    authType: "user-login",
     initialFormValues,
   });
 

@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 //routes
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1", userRouter);
 app.use("/api/v1/user", testRouter);
 
 //errors handler

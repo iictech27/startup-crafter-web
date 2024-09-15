@@ -11,7 +11,7 @@ export default function Signup() {
   const initialFormValues = { fullName: "", email: "", password: "" };
 
   const [formValues, handleChange, handleSubmit, validationError] = useAuth({
-    authType: "register",
+    authType: "user-register",
     initialFormValues,
   });
 
