@@ -15,6 +15,6 @@ router
   .post(authHandler({ userType: "admin" }), logoutAdmin);
 router
   .route("/admin/reset-admin-password")
-  .post(authHandler, changeAdminPassword);
+  .post(authHandler({ userType: "admin" }), changeAdminPassword);
 
 module.exports = router;
