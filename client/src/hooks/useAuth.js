@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/users/userSlice";
+import { setAdmin } from "../features/users/adminSlice";
 
 export default function useAuth({ authType, initialFormValues }) {
   const navigate = useNavigate();
@@ -71,8 +72,6 @@ export default function useAuth({ authType, initialFormValues }) {
       return;
     }
 
-    console.log(formValues);
-
     const res = axios
       .post(`/api/v1/${authType}`, formValues, { withCredentials: true })
       .then((res) => {
@@ -84,6 +83,7 @@ export default function useAuth({ authType, initialFormValues }) {
         } else if (authType === "user-register") {
           navigate("/user-login");
         } else if (authType === "admin-login") {
+          dispatch(setAdmin(res.data.data));
           navigate("/admin");
         } else {
           navigate("");

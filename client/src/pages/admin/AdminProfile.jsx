@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { ResetAdminPassword } from "../AdminLogin";
+import { useSelector } from "react-redux";
 
 export default function AdminProfile() {
+  const admin = useSelector((store) => store.admin.admin);
   const [isResetPassFormOpen, setResetPassFormOpen] = useState(false);
 
   const handleResetPassword = () => {
@@ -16,7 +18,9 @@ export default function AdminProfile() {
         </div>
         <i className="fa-solid fa-pen absolute top-[1rem] left-[12rem] sm:top-[3.5rem] sm:left-[15rem] text-md bg-blue-600 p-2.5 rounded-full text-white"></i>
         <div className="text-center sm:text-left">
-          <h1 className="sm:ml-6 font-bold text-3xl capitalize">admin name</h1>
+          <h1 className="sm:ml-6 font-bold text-3xl capitalize">
+            {admin?.adminName || "admin name"}
+          </h1>
           <span className="sm:ml-6 text-gray-500 sm:text-left">Admin</span>
         </div>
       </div>
@@ -27,13 +31,13 @@ export default function AdminProfile() {
         >
           change password
         </span>
-        <h3 className="text-gray-500 mt-6">admin name : </h3>
+        <h3 className="text-gray-500 mt-6">
+          admin name : {admin?.adminName || ""}
+        </h3>
         <h3 className="text-gray-500 mt-6">e-mail : </h3>
       </div>
       {isResetPassFormOpen && (
-        <ResetAdminPassword
-          onClose={() => setResetPassFormOpen((prev) => !prev)}
-        />
+        <ResetAdminPassword onClose={() => setResetPassFormOpen(false)} />
       )}
     </div>
   );
