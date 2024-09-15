@@ -178,7 +178,7 @@ const changeAdminPassword = asyncHandler(async (req, res) => {
 
   //checking if admin entered existing password correct
   const admin = await Admin.findOne(req.admin?._id);
-  const isPasswordValid = admin.isValidPassword(oldPassword);
+  const isPasswordValid = await admin.isValidPassword(oldPassword);
 
   if (!isPasswordValid) {
     throw new ApiError(400, "Invalid old password");
