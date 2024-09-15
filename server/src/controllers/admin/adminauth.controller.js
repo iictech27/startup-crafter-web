@@ -3,83 +3,82 @@ const jwt = require("jsonwebtoken");
 const { ApiError } = require("../../utils/customErrorHandler");
 const ResponseHandler = require("../../utils/responseHandler");
 const asyncHandler = require("../../utils/asyncHandler");
-const User = require("../../models/user.model");
+const Admin = require("../../models/admin.model");
 
 //access token refresh token generating utility method
-const generateTokens = async (userId) => {
+const generateTokens = async (adminId) => {
   try {
-    const user = await User.findById(userId);
-    const accessToken = user.generateAccessToken();
-    const refreshToken = user.generateRefreshToken();
+    const admin = await Admin.findById(adminId);
+    const accessToken = admin.generateAccessToken();
+    const refreshToken = admin.generateRefreshToken();
 
-    user.refreshToken = refreshToken;
-    await user.save({ validateBeforeSave: false });
+    admin.refreshToken = refreshToken;
+    await admin.save({ validateBeforeSave: false });
     return { accessToken, refreshToken };
   } catch (error) {
     throw new ApiError(500, "Access token, Refresh token generating failed !");
   }
 };
 
-//register user
-const registerUser = asyncHandler(async (req, res) => {
-  const { fullName, email, password } = req.body;
+//add admin
+const addAdmin = asyncHandler(async (req, res) => {
+  const { adminName, password } = req.body;
 
   //checking if any field is unfilled
-  if (!fullName || !email || !password) {
+  if (!adminName || !password) {
     throw new ApiError(400, "All fields are required !");
   }
 
-  //checking if the user already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    throw new ApiError(409, "User already exists");
+  //checking if the admin already exists
+  const existingAdmin = await Admin.findOne({ adminName });
+  if (existingAdmin) {
+    throw new ApiError(409, "Admin already exists");
   }
 
-  //creating new user
-  const user = await User.create({
-    fullName,
-    email,
+  //creating new admin
+  const admin = await Admin.create({
+    adminName,
     password,
   });
 
-  //checking if user is created successfully
-  const createdUser = await User.findById(user._id).select("-password");
-  if (!createdUser) {
+  //checking if admin is added successfully
+  const addedAdmin = await Admin.findById(admin._id).select("-password");
+  if (!addedAdmin) {
     throw new ApiError(500, "Something went wrong!");
   }
   return res
     .status(200)
     .json(
-      new ResponseHandler(201, "User registered successfully", createdUser)
+      new ResponseHandler(201, "Admin registered successfully", addedAdmin)
     );
 });
 
-//login user
-const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+//login admin
+const loginAdmin = asyncHandler(async (req, res) => {
+  const { adminName, password } = req.body;
 
   //checking if any field is unfilled
-  if (!email || !password) {
+  if (!adminName || !password) {
     throw new ApiError(400, "All fields are required !");
   }
 
-  //checking if the user exists or not
-  const user = await User.findOne({ email });
-  if (!user) {
+  //checking if the admin exists or not
+  const admin = await Admin.findOne({ adminName });
+  if (!admin) {
     throw new ApiError(409, "User not exists ! Please register !");
   }
 
   //checking if given password is valid
-  const isPasswordValid = await user.isValidPassword(password);
+  const isPasswordValid = await admin.isValidPassword(password);
   if (!isPasswordValid) {
-    throw new ApiError(409, "Invalid user login credentials");
+    throw new ApiError(409, "Invalid login credentials");
   }
 
   //generate tokens
-  const { accessToken, refreshToken } = await generateTokens(user._id);
+  const { accessToken, refreshToken } = await generateTokens(admin._id);
 
-  //fetching logged in user
-  const loggedInUser = await User.findById(user._id).select(
+  //fetching logged in admin
+  const loggedInAdmin = await Admin.findById(admin._id).select(
     "-password -refreshToken"
   );
 
@@ -95,14 +94,14 @@ const loginUser = asyncHandler(async (req, res) => {
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
     .json(
-      new ResponseHandler(201, "User logged in successfully", loggedInUser)
+      new ResponseHandler(201, "Admin logged in successfully", loggedInAdmin)
     );
 });
 
-//logout user
-const logoutUser = asyncHandler(async (req, res) => {
-  await User.findByIdAndUpdate(
-    req.user._id,
+//logout admin
+const logoutAdmin = asyncHandler(async (req, res) => {
+  await Admin.findByIdAndUpdate(
+    req.admin._id,
     {
       $unset: {
         refreshToken: 1,
@@ -122,7 +121,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     .status(200)
     .clearCookie("accessToken", options)
     .clearCookie("refreshToken", options)
-    .json(new ResponseHandler(200, "User logged Out", {}));
+    .json(new ResponseHandler(200, "Admin logged Out", {}));
 });
 
 //refresh access token
@@ -173,20 +172,21 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-//change user password
-const changeUserPassword = asyncHandler(async (req, res) => {
+//change admin password
+const changeAdminPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
-  //checking if user entered existing password correct
-  const user = await User.findById(req.user?._id);
-  const isPasswordValid = user.isValidPassword(oldPassword);
+  //checking if admin entered existing password correct
+  const admin = await Admin.findOne(req.admin?._id);
+  console.log(req);
+  const isPasswordValid = admin.isValidPassword(oldPassword);
 
   if (!isPasswordValid) {
     throw new ApiError(400, "Invalid old password");
   }
 
-  user.password = newPassword;
-  user.save({ validateBeforeSave: false });
+  admin.password = newPassword;
+  admin.save({ validateBeforeSave: false });
 
   return res
     .status(200)
@@ -194,9 +194,9 @@ const changeUserPassword = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  registerUser,
-  loginUser,
-  logoutUser,
+  addAdmin,
+  loginAdmin,
+  logoutAdmin,
   refreshAccessToken,
-  changeUserPassword,
+  changeAdminPassword,
 };

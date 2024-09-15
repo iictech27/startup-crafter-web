@@ -7,6 +7,7 @@ const cors = require("cors");
 const defaultErrorHandler = require("./middlewares/defaultErrorHandler");
 const userRouter = require("./routes/user.route");
 const testRouter = require("./routes/test.route");
+const adminRouter = require("./routes/admin.route");
 
 const app = express();
 
@@ -30,7 +31,8 @@ app.use(cookieParser());
 
 //routes
 app.use("/api/v1", userRouter);
-app.use("/api/v1/user", testRouter);
+app.use("/api/v1", adminRouter);
+app.use("/api/v1", testRouter);
 
 //errors handler
 app.use(defaultErrorHandler);
