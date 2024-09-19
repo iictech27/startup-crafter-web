@@ -11,8 +11,11 @@ export const adminSlice = createSlice({
     setAdmin: (state, action) => {
       state.admin = action.payload;
     },
+    clearAdmin: (state, action) => {
+      state.admin = null;
+    },
   },
 });
 
-export const { setAdmin } = adminSlice.actions;
+export const { setAdmin, clearAdmin } = adminSlice.actions;
 export default adminSlice.reducer;

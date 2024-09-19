@@ -12,11 +12,11 @@ export default function AdminProfile() {
 
   return (
     <div className="flex flex-col p-2 sm:p-8 gap-y-8">
-      <div className="flex flex-wrap gap-x-8 justify-center sm:justify-start items-center">
+      <div className="relative flex flex-wrap gap-x-8 justify-center sm:justify-start items-center">
         <div className="admin-profile border-2 border-black p-16 sm:p-20 rounded-full">
           <i className="fa-regular fa-user"></i>
         </div>
-        <i className="fa-solid fa-pen absolute top-[1rem] left-[12rem] sm:top-[3.5rem] sm:left-[15rem] text-md bg-blue-600 p-2.5 rounded-full text-white"></i>
+        <i className="fa-solid fa-pen absolute top-[1rem] left-[12rem] sm:top-[1.5rem] sm:left-[10rem] text-md bg-blue-600 p-2.5 rounded-full text-white"></i>
         <div className="text-center sm:text-left">
           <h1 className="sm:ml-6 font-bold text-3xl capitalize">
             {admin?.adminName || "admin name"}

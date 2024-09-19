@@ -6,9 +6,12 @@ import Hamburger from "hamburger-react";
 import { useState, useEffect } from "react";
 import styles from "../style.js";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { clearAdmin } from "../features/users/adminSlice";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
   const [isNavFixed, setNavFixed] = useState(false);
 
@@ -28,6 +31,7 @@ export default function AdminLayout() {
       .post("/api/v1/admin-logout", { withCredentials: true })
       .then((res) => {
         console.log(res);
+        dispatch(clearAdmin());
         navigate("/");
       })
       .catch((error) => {
