@@ -1,12 +1,14 @@
 import { admin_navlinks } from "../constants/index.js";
-import { NavLink, Outlet, Link } from "react-router-dom";
+import { NavLink, Outlet, Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import Button from "../components/Button.jsx";
 import Hamburger from "hamburger-react";
 import { useState, useEffect } from "react";
 import styles from "../style.js";
+import axios from "axios";
 
 export default function AdminLayout() {
+  const navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
   const [isNavFixed, setNavFixed] = useState(false);
 
@@ -21,11 +23,26 @@ export default function AdminLayout() {
     window.addEventListener("scroll", fixNav);
   }, []);
 
+  const logout = async () => {
+    const res = await axios
+      .post("/api/v1/admin-logout", { withCredentials: true })
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    console.log(res);
+  };
+
   return (
-    <section className="flex min-h-screen">
+    <section className="relative flex min-h-screen">
       <div
         className={`hidden navbar md:w-[20rem] h-[100vh] px-6 py-8 md:flex flex-col justify-between shadow-2xl`}
       >
+        {/* logo */}
         <Link to="/">
           <img
             src={logo}
@@ -39,7 +56,11 @@ export default function AdminLayout() {
               <NavLink
                 to={nav.id}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded-full font-semibold ${isActive ? "gradientBtnColor text-white shadow-md" : "bg-white text-textColor"}`
+                  `px-4 py-2 rounded-full font-semibold ${
+                    isActive
+                      ? "gradientBtnColor text-white shadow-md"
+                      : "bg-white text-textColor"
+                  }`
                 }
               >
                 {nav.title}
@@ -47,11 +68,17 @@ export default function AdminLayout() {
             </li>
           ))}
         </ul>
-        <Button title="Logout" btnColor="gradientBtnColor" />
+        <Button
+          title="Logout"
+          onHandleClick={logout}
+          btnColor="gradientBtnColor"
+        />
       </div>
       <div className="flex-1 h-[100vh] overflow-y-scroll">
         <div
-          className={`${isNavFixed && "fixed w-full bg-gray-50 z-50"} h-[5rem] p-4 flex justify-between items-center shadow-md md:shadow-none`}
+          className={`${
+            isNavFixed && "fixed w-full bg-gray-50 z-50"
+          } h-[5rem] p-4 flex justify-between items-center shadow-md md:shadow-none`}
         >
           <div className="md:hidden">
             <Hamburger toggle={setOpen} toggled={isOpen} size={25} />
@@ -68,7 +95,11 @@ export default function AdminLayout() {
                     <NavLink
                       to={nav.id}
                       className={({ isActive }) =>
-                        `px-3 py-1 rounded-full font-semibold ${isActive ? "gradientBtnColor text-white shadow-md" : "bg-white text-textColor"}`
+                        `px-3 py-1 rounded-full font-semibold ${
+                          isActive
+                            ? "gradientBtnColor text-white shadow-md"
+                            : "bg-white text-textColor"
+                        }`
                       }
                     >
                       {nav.title}
