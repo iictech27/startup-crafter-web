@@ -82,7 +82,9 @@ export default function Header() {
         {user ? (
           //user icon
           <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
-            <span className="font-medium text-gray-600">{user.fullName}</span>
+            <Link to="/user/profile" className="font-medium text-gray-600">
+              {user.fullName}
+            </Link>
           </div>
         ) : (
           //login button
@@ -120,9 +122,9 @@ export default function Header() {
             {user ? (
               //user icon
               <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full ring-2 ring-gray-300 p-6 cursor-pointer">
-                <span className="font-medium text-gray-600">
+                <Link to="/user/profile" className="font-medium text-gray-600">
                   {user.fullName}
-                </span>
+                </Link>
               </div>
             ) : (
               //login button
