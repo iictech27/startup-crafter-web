@@ -10,10 +10,13 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.users = action.payload;
-      //   localStorage.setItem("current-user", action.payload);
+      // console.log(users);
+    },
+    clearUser: (state, action) => {
+      state.users = null;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;
