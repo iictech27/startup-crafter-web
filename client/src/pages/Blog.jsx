@@ -28,7 +28,7 @@ export default function Blog() {
           </Link>
         </div>
       </header>
-      <section className={`border-t border-t-[1px] border-zinc-400`}>
+      <section className={`border-t border-zinc-400`}>
         <Outlet />
       </section>
       <img
