@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./BlogEditor.module.css";
 import "./_blogEditor.scss";
 import ReactQuill from "react-quill";
@@ -7,6 +7,7 @@ import half_circle from "../../assets/vectors/half_circle.png";
 import smFooterVector from "../../assets/vectors/smFooterVector.png";
 import left_texture from "../../assets/vectors/login_texture2.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const modules = {
   toolbar: [
@@ -41,10 +42,13 @@ const formats = [
 ];
 
 const BlogEditor = () => {
+  const { _id } = useSelector((store) => store.user.users);
+
+  const fileInputRef = useRef(null);
   const [blog, setBlog] = useState({
     title: "",
     content: "",
-    image: null,
+    image: "",
   });
   const [showNotification, setShowNotification] = useState(false);
 
@@ -54,11 +58,45 @@ const BlogEditor = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(blog);
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
+
+    //FormData
+    const formData = new FormData();
+    formData.append("creatorId", _id);
+    formData.append("title", blog.title);
+    formData.append("content", blog.content);
+
+    if (blog.image) {
+      formData.append("image", blog.image);
+    }
+    const res = axios
+      .post("/api/v1/user/create-blog", formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setShowNotification(true);
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    console.log(res);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
+    setBlog({
+      title: "",
+      content: "",
+      image: "",
+    });
   };
 
   return (
@@ -92,8 +130,8 @@ const BlogEditor = () => {
                 type="file"
                 accept="image/*"
                 id="image"
-                value={blog.image}
-                onChange={(e) => setBlog({ ...blog, image: e.target.value })}
+                ref={fileInputRef}
+                onChange={(e) => setBlog({ ...blog, image: e.target.files[0] })}
                 className={styles.input_field}
               />
             </div>
@@ -109,7 +147,7 @@ const BlogEditor = () => {
                 id="title"
                 value={blog.title}
                 onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-                placeholder="TITLE"
+                placeholder="Title"
                 className={styles.input_field}
               />
             </div>
