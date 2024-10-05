@@ -1,5 +1,6 @@
 import signup_image from "../assets/images/signup_image.png";
 import loginsvg from "../assets/vectors/loginsvg.png";
+import logo from "../assets/logo.png";
 import { Input, InputButton } from "../components/index";
 import { Link, useNavigate } from "react-router-dom";
 import google_icon from "../assets/icons/google_icon.png";
@@ -20,6 +21,14 @@ export default function Signup() {
       <section
         className={`min-h-screen px-[2rem] md:px-[6rem] md:pl-[8rem] lg:px-[3rem] lg:pl-[12rem] ${styles.paddingY} ${styles.flexCenter} relative overflow-y-hidden`}
       >
+        {/* logo */}
+        <Link to="/">
+          <img
+            src={logo}
+            alt="Startup crafter"
+            className="absolute top-8 left-20 w-[100px] h-[34px] md:w-[150px] md:h-[50px]"
+          />
+        </Link>
         {/* signup form */}
         <div
           className={`relative flex justify-center items-center flex-wrap w-full z-10`}
