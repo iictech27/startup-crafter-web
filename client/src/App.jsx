@@ -40,6 +40,9 @@ import MyBlogs from "./components/blogs/MyBlogs.jsx";
 import SavedBlogs from "./components/blogs/SavedBlogs.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import EditUserProfile from "./pages/EditUserProfile.jsx";
+import ProtectedRoute, {
+  ProtectedRouteForAdmin,
+} from "./utils/ProtectedRoute.jsx";
 
 function App() {
   return (
@@ -48,15 +51,21 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="idea" element={<Idea />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="idea" element={<Idea />} />
+          </Route>
           <Route path="internship" element={<Internship />} />
           <Route path="blog" element={<Blog />}>
             <Route index element={<AllBlogs />} />
-            <Route path="my-blogs" element={<MyBlogs />} />
-            <Route path="saved-blogs" element={<SavedBlogs />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="my-blogs" element={<MyBlogs />} />
+              <Route path="saved-blogs" element={<SavedBlogs />} />
+            </Route>
           </Route>
-          <Route path="blog/editor" element={<BlogEditor />} />
-          <Route path="blog/:blogs" element={<IndividualBlog />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="blog/editor" element={<BlogEditor />} />
+            <Route path="blog/:blogs" element={<IndividualBlog />} />
+          </Route>
           <Route path="study-material" element={<StudyMaterialPage />}>
             <Route index element={<RecommendedTopics />} />
             <Route path=":topic" element={<Topics />} />
@@ -83,14 +92,16 @@ function App() {
           <Route exact path="/contact" element={<ContactForm />} />
           <Route exact path="/feedback" element={<FeedbackPage />} />
         </Route>
-        <Route exact path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminProfile />} />
-          <Route path="add-event" element={<AddEvent />} />
-          <Route path="idea-review" element={<IdeaReview />} />
-          <Route path="add-internship" element={<AddInternship />} />
-          <Route path="add-study-material" element={<AddSM />} />
-          <Route path="idea-feedback" element={<IdeaFeedback />} />
-          <Route path="messages" element={<Messages />} />
+        <Route element={<ProtectedRouteForAdmin />}>
+          <Route exact path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminProfile />} />
+            <Route path="add-event" element={<AddEvent />} />
+            <Route path="idea-review" element={<IdeaReview />} />
+            <Route path="add-internship" element={<AddInternship />} />
+            <Route path="add-study-material" element={<AddSM />} />
+            <Route path="idea-feedback" element={<IdeaFeedback />} />
+            <Route path="messages" element={<Messages />} />
+          </Route>
         </Route>
         <Route exact path="/user-signup" element={<Signup />} />
         <Route exact path="/user-login" element={<Login />} />
