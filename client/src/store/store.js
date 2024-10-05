@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/users/userSlice";
+import userBlogReducer from "../features/blog/userBlogSlice";
 import adminReducer from "../features/users/adminSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
