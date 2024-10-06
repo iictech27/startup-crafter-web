@@ -10,15 +10,20 @@ const {
   createBlog,
   editBlog,
   deleteBlog,
+  getAllBlogs,
+  getUserCreatedBlogs,
+  saveBlog,
 } = require("../controllers/user/blog.controller.js");
 const authHandler = require("../middlewares/authHandler.js");
 
+//authentication
 router.route("/user-register").post(registerUser);
 router.route("/user-login").post(loginUser);
 router
   .route("/user-logout")
   .post(authHandler({ userType: "user" }), logoutUser);
 
+//blog
 router
   .route("/user/create-blog")
   .post(authHandler({ userType: "user" }), upload.single("image"), createBlog);
@@ -28,5 +33,16 @@ router
 router
   .route("/user/delete-blog")
   .delete(authHandler({ userType: "user" }), deleteBlog);
+router.route("/user/get-all-blogs").get(getAllBlogs);
+router
+  .route("/user/get-user-blogs")
+  .post(authHandler({ userType: "user" }), getUserCreatedBlogs);
+router
+  .route("/user/save-blog")
+  .post(authHandler({ userType: "user" }), saveBlog);
+
+//idea
+
+//study material
 
 module.exports = router;
