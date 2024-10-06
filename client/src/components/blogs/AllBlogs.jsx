@@ -78,7 +78,7 @@ export function BlogsList({ blogs_data, loadingState }) {
 }
 
 export default function AllBlogs() {
-  const [blogs, isLoading] = useFetchData("/src/data/blogs.json");
+  const { data, isLoading } = useFetchData("/src/data/blogs.json");
 
   return (
     <>
@@ -87,7 +87,7 @@ export default function AllBlogs() {
         to stay informed and inspired
       </h1>
 
-      <BlogsList blogs_data={blogs} loadingState={isLoading} />
+      <BlogsList blogs_data={data} loadingState={isLoading} />
     </>
   );
 }

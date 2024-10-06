@@ -4,23 +4,24 @@ import axios from "axios";
 export default function useFetchData(url) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
+
   const fetchData = async () => {
     try {
-      const res = await fetch(url, {
+      const res = await axios(url, {
         headers: {
           Accept: "application/json",
         },
       });
-      const data = await res.json();
-      setData(data);
-      setLoading(false);
+      setData(res.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [url]);
 
-  return [data, isLoading, setLoading];
+  return { data, isLoading, setLoading };
 }
