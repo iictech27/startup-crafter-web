@@ -13,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  blog: userBlogReducer,
   admin: adminReducer,
 });
 
