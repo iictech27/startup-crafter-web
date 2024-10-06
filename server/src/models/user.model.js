@@ -21,6 +21,12 @@ const userSchema = new Schema(
       required: [true, "Enter password"],
       minLength: [8, "Password must be of at least 8 characters"],
     },
+    savedBlogs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Blog",
+      },
+    ],
     refreshToken: { type: String },
   },
   { timestamps: true }
