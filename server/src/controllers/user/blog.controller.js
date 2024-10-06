@@ -66,8 +66,80 @@ const deleteBlog = asyncHandler(async (req, res) => {
     .json(new ResponseHandler(201, "Blog Deleted successfully"));
 });
 
+const getAllBlogs = asyncHandler(async (req, res) => {
+  const blogs = await Blog.find().populate({
+    path: "createdBy",
+    select: "fullName",
+  });
+
+  if (!blogs) {
+    throw new NotFoundError("Blogs Not Found !");
+  }
+
+  return res
+    .status(200)
+    .json(new ResponseHandler(201, "All Blogs fetched successfully", blogs));
+});
+
+const getUserCreatedBlogs = asyncHandler(async (req, res) => {
+  const { creatorId } = req.body;
+  const blogs = await Blog.find({ createdBy: creatorId }).populate({
+    path: "createdBy",
+    select: "fullName",
+  });
+
+  if (!blogs) {
+    throw new NotFoundError("Blogs Not Found !");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ResponseHandler(
+        201,
+        "All User Created Blogs fetched successfully",
+        blogs
+      )
+    );
+});
+
+const saveBlog = asyncHandler(async (req, res) => {
+  const { blogId, userId } = req.body;
+
+  if (!blogId || !userId) {
+    throw new ApiError(400, "All fields are required!");
+  }
+
+  const blog = await Blog.findById(blogId);
+
+  const user = await User.findById(userId);
+
+  if (!blog || !user) {
+    throw new NotFoundError("Blog or User Not Found !");
+  }
+
+  const savedBlog = await User.findByIdAndUpdate(
+    userId,
+    {
+      $push: { savedBlogs: blogId },
+    },
+    { new: true, useFindAndModify: false }
+  );
+
+  if (!savedBlog) {
+    throw new ApiError(500, "Something went wrong");
+  }
+
+  return res
+    .status(200)
+    .json(new ResponseHandler(201, "Blog saved successfully", blogId));
+});
+
 module.exports = {
   createBlog,
   editBlog,
   deleteBlog,
+  getAllBlogs,
+  getUserCreatedBlogs,
+  saveBlog,
 };
