@@ -7,6 +7,7 @@ import { Button } from "../components";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../features/users/userSlice";
+import { clearBlogs } from "../features/blog/userBlogSlice";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function UserProfile() {
       .then((res) => {
         console.log(res);
         dispatch(clearUser());
+        dispatch(clearBlogs());
         navigate("/");
       })
       .catch((error) => {
