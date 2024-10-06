@@ -7,7 +7,7 @@ import half_circle from "../../assets/vectors/half_circle.png";
 import smFooterVector from "../../assets/vectors/smFooterVector.png";
 import left_texture from "../../assets/vectors/login_texture2.png";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const modules = {
   toolbar: [
@@ -42,7 +42,8 @@ const formats = [
 ];
 
 const BlogEditor = () => {
-  const { _id } = useSelector((store) => store.user.users);
+  const { _id } = useSelector((store) => store.user.users || {});
+  const dispatch = useDispatch();
 
   const fileInputRef = useRef(null);
   const [blog, setBlog] = useState({
@@ -77,6 +78,9 @@ const BlogEditor = () => {
       })
       .then((response) => {
         console.log(response);
+
+        dispatch(createBlog(response.data.data));
+
         setShowNotification(true);
         setTimeout(() => {
           setShowNotification(false);
