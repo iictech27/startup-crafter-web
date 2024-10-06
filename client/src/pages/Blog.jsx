@@ -5,9 +5,11 @@ export default function Blog() {
   return (
     <>
       <header className="w-[90vw] mx-auto flex mb-4 items-center">
-        <h1 className="blogtitle text-2xl md:text-4xl font-italiana uppercase basis-[20%]">
-          Blogs
-        </h1>
+        <Link to="/blog" className="basis-[20%]">
+          <h1 className="blogtitle text-2xl md:text-4xl font-italiana uppercase">
+            Blogs
+          </h1>
+        </Link>
         <div className="search-box basis-[60%] mx-auto relative">
           <i className="fa-solid fa-magnifying-glass absolute top-3 left-2 text-gray-700"></i>
           <input
