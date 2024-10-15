@@ -304,6 +304,18 @@ const duration_options = [
   { value: "36", label: "36 month" },
 ];
 
+const blog_tags_options = [
+  { value: "startup", label: "Startup" },
+  { value: "technology", label: "Technology" },
+  { value: "business", label: "Business" },
+  { value: "chennai", label: "Chennai" },
+  { value: "pune", label: "Pune" },
+  { value: "hyderabad", label: "Hyderabad" },
+  { value: "delhi", label: "Delhi" },
+  { value: "noida", label: "Noida" },
+  { value: "gujrat", label: "Gujrat" },
+];
+
 export {
   navlinks,
   admin_navlinks,
@@ -316,4 +328,5 @@ export {
   profile_options,
   location_options,
   duration_options,
+  blog_tags_options,
 };
