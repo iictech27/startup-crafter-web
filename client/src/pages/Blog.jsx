@@ -30,7 +30,7 @@ export default function Blog() {
           </Link>
         </div>
       </header>
-      <section className={`border-t border-zinc-400`}>
+      <section className={`border-t border-zinc-400 min-h-[70vh]`}>
         <Outlet />
       </section>
       <img
