@@ -8,6 +8,12 @@ import smFooterVector from "../../assets/vectors/smFooterVector.png";
 import left_texture from "../../assets/vectors/login_texture2.png";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import SelectInput from "../internship_portal/SelectInput";
+import { blog_tags_options } from "../../constants";
+import {
+  createBlog,
+  fetchUserCreatedBlogs,
+} from "../../features/blog/userBlogSlice";
 
 const modules = {
   toolbar: [
@@ -42,7 +48,7 @@ const formats = [
 ];
 
 const BlogEditor = () => {
-  const { _id } = useSelector((store) => store.user.users || {});
+  const { uuid } = useSelector((store) => store.user.users || {});
   const dispatch = useDispatch();
 
   const fileInputRef = useRef(null);
@@ -50,11 +56,20 @@ const BlogEditor = () => {
     title: "",
     content: "",
     image: "",
+    tags: [],
   });
+  // const [selectedTagOptions,setSelectedTagOptions] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
 
   const handleContentChange = (value) => {
     setBlog({ ...blog, content: value });
+  };
+
+  const handleTagOptions = (selected) => {
+    const selectedValue = selected
+      ? selected.map((option) => option.value)
+      : [];
+    setBlog((prevBlog) => ({ ...prevBlog, tags: selectedValue }));
   };
 
   const handleSubmit = (e) => {
@@ -62,35 +77,17 @@ const BlogEditor = () => {
 
     //FormData
     const formData = new FormData();
-    formData.append("creatorId", _id);
+    formData.append("creatorId", uuid);
     formData.append("title", blog.title);
     formData.append("content", blog.content);
+    formData.append("tags", blog.tags);
 
     if (blog.image) {
       formData.append("image", blog.image);
     }
-    const res = axios
-      .post("/api/v1/user/create-blog", formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log(response);
 
-        dispatch(createBlog(response.data.data));
-
-        setShowNotification(true);
-        setTimeout(() => {
-          setShowNotification(false);
-        }, 3000);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    console.log(res);
+    dispatch(createBlog(formData));
+    // console.log(res);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -100,6 +97,7 @@ const BlogEditor = () => {
       title: "",
       content: "",
       image: "",
+      tags: [],
     });
   };
 
@@ -123,6 +121,7 @@ const BlogEditor = () => {
             Write Your Blog Here ...
           </h1>
           <form onSubmit={handleSubmit}>
+            {/* upload thumbnail section */}
             <div className={styles.input_group}>
               <label
                 htmlFor="image"
@@ -139,6 +138,7 @@ const BlogEditor = () => {
                 className={styles.input_field}
               />
             </div>
+            {/* title section */}
             <div className={styles.input_group}>
               <label
                 htmlFor="title"
@@ -155,6 +155,7 @@ const BlogEditor = () => {
                 className={styles.input_field}
               />
             </div>
+            {/* main content */}
             <div className={styles.input_group}>
               <label
                 htmlFor="content"
@@ -174,6 +175,25 @@ const BlogEditor = () => {
                   className={styles.editor}
                 />
               </div>
+            </div>
+            {/* tags section */}
+            <div className={styles.input_group}>
+              <label
+                htmlFor="content"
+                className={`${styles.input_label} font-bold text-xl font-inria`}
+              >
+                Tags
+              </label>
+              <SelectInput
+                title=""
+                options={blog_tags_options}
+                handleOptionValue={blog.tags?.map((tag) => ({
+                  value: tag,
+                  label: tag,
+                }))}
+                handleOptionChange={handleTagOptions}
+                placeholder="e.g. Startup"
+              />
             </div>
             <button type="submit" className={styles.submit_button}>
               Submit
