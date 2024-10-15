@@ -1,12 +1,14 @@
 export default function Card({ children, img, className }) {
   return (
     <div
-      className={`lg:max-w-[25vw] mx-auto lg:h-auto flex flex-col justify-between gap-y-4 shadow-md ${className ? className : "p-8 rounded-xl"} cursor-pointer hover:shadow-lg hover:-translate-y-2 transition ease-in-out`}
+      className={`lg:max-w-[25vw] mx-auto lg:h-auto flex flex-col justify-between gap-y-4 shadow-md ${
+        className ? className : "p-8 rounded-xl"
+      } hover:shadow-lg hover:-translate-y-2 transition ease-in-out`}
     >
       <img
         src={img}
         alt={`image ${img}`}
-        className="w-full h-[16rem] object-cover rounded-xl"
+        className="w-full h-[16rem] object-cover rounded-xl cursor-pointer"
       />
       {children}
     </div>
