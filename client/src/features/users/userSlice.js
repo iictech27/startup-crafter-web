@@ -7,6 +7,27 @@ const initialState = {
   error: null,
 };
 
+//follow
+export const followUser = createAsyncThunk(
+  "users/followUser",
+  async (data, { rejectWithValue }) => {
+    console.log(data);
+    const res = await axios.post("/api/v1/user/follow-user", data, {
+      withCredentials: true,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    try {
+      console.log(res.data);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
 //save blogs
 export const saveBlog = createAsyncThunk(
   "users/saveBlog",
@@ -40,6 +61,7 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //handle save blog
     builder.addCase(saveBlog.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -49,6 +71,20 @@ export const userSlice = createSlice({
       state.users.savedBlogs.push(action.payload);
     });
     builder.addCase(saveBlog.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    //handle follow user
+    builder.addCase(followUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(followUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.users.following.push(action.payload);
+    });
+    builder.addCase(followUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
