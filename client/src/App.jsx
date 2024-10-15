@@ -62,9 +62,9 @@ function App() {
               <Route path="saved-blogs" element={<SavedBlogs />} />
             </Route>
           </Route>
+          <Route path="blog/:blogs" element={<IndividualBlog />} />
           <Route element={<ProtectedRoute />}>
             <Route path="blog/editor" element={<BlogEditor />} />
-            <Route path="blog/:blogs" element={<IndividualBlog />} />
           </Route>
           <Route path="study-material" element={<StudyMaterialPage />}>
             <Route index element={<RecommendedTopics />} />
