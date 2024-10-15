@@ -3,9 +3,11 @@ const Schema = mongoose.Schema;
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 const userSchema = new Schema(
   {
+    uuid: { type: String, default: uuidv4, unique: true },
     fullName: {
       type: String,
       required: [true, "Enter full name"],
@@ -27,6 +29,16 @@ const userSchema = new Schema(
         ref: "Blog",
       },
     ],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    followers: {
+      type: Number,
+      default: 0,
+    },
     refreshToken: { type: String },
   },
   { timestamps: true }
