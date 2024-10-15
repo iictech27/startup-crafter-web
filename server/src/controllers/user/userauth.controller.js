@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 //local imports
 const { ApiError } = require("../../utils/customErrorHandler");
 const ResponseHandler = require("../../utils/responseHandler");
@@ -35,15 +36,25 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(409, "User already exists");
   }
 
+  let newUUID;
+  let existingUUID;
+
+  //checking if same uuid exists
+  do {
+    newUUID = uuidv4();
+    existingUUID = await User.findOne({ uuid: newUUID });
+  } while (existingUUID);
+
   //creating new user
   const user = await User.create({
+    uuid: newUUID,
     fullName,
     email,
     password,
   });
 
   //checking if user is created successfully
-  const createdUser = await User.findById(user._id).select("-password");
+  const createdUser = await User.findById(user._id).select("-_id -password");
   if (!createdUser) {
     throw new ApiError(500, "Something went wrong!");
   }
@@ -80,7 +91,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //fetching logged in user
   const loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken"
+    "-_id -password -refreshToken"
   );
 
   //configuring cookie options
