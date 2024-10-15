@@ -13,8 +13,13 @@ const {
   getAllBlogs,
   getUserCreatedBlogs,
   saveBlog,
+  getIndividualBlog,
 } = require("../controllers/user/blog.controller.js");
 const authHandler = require("../middlewares/authHandler.js");
+const {
+  unFollowUser,
+  followUser,
+} = require("../controllers/user/userfollow.controller.js");
 
 //authentication
 router.route("/user-register").post(registerUser);
@@ -35,11 +40,17 @@ router
   .delete(authHandler({ userType: "user" }), deleteBlog);
 router.route("/user/get-all-blogs").get(getAllBlogs);
 router
-  .route("/user/get-user-blogs")
-  .post(authHandler({ userType: "user" }), getUserCreatedBlogs);
-router
   .route("/user/save-blog")
   .post(authHandler({ userType: "user" }), saveBlog);
+router.route("/user/get-blog/:individualBlogSlug").get(getIndividualBlog);
+
+//follow user
+router
+  .route("/user/follow-user")
+  .post(authHandler({ userType: "user" }), followUser);
+router
+  .route("/user/unFollow-user")
+  .post(authHandler({ userType: "user" }), unFollowUser);
 
 //idea
 
