@@ -8,29 +8,49 @@ import usePagination from "../../hooks/usePagination";
 import TopicLoadingCard from "./TopicLoadingCard";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchAllTopics } from "../../features/study_material/studyMaterialSlice";
 
 export default function RecommendedTopics() {
-  const [topics, isLoading] = useFetchData("/src/data/topics.json");
+  const dispatch = useDispatch();
+  const { topics, loading, error } = useSelector(
+    (state) => state.studyMaterial || {}
+  );
+  // console.log(topics);
+  const [topicsAvailable, setTopicsAvailable] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(3);
   const [currentItem, currentPage, setCurrentPage] = usePagination(itemsToShow);
+
+  useEffect(() => {
+    dispatch(fetchAllTopics());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (topics.length > 0) {
+      setTopicsAvailable(true);
+    }
+  }, [topics]);
+
+  if (error) return <div>Error : {error}</div>;
 
   return (
     <>
       <div className="flex flex-col justify-center items-center gap-x-8 gap-y-8 lg:h-[60vh]">
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          {!isLoading
-            ? topics
+          {topicsAvailable ? (
+            !loading ? (
+              topics
                 .map((topic, index) => (
-                  <Card key={index} img={topic.image_link}>
+                  <Card key={index} img={topic.cover_image}>
                     <h3 className="text-xl w-5/6 font-inter font-bold">
-                      {topic.title}
+                      {topic?.title}
                     </h3>
                     <p className="text-blue-900">
-                      {topic.description.substring(0, 200)}...
+                      {topic?.description.substring(0, 200)}...
                     </p>
                     <Link
-                      to={topic.title.split(" ").join("-").toLowerCase()}
+                      to={topic?.title.split(" ").join("-").toLowerCase()}
                       className="text-pink-600 text-xl flex items-center gap-x-2"
                     >
                       <span className="underline">Start this track</span>{" "}
@@ -39,7 +59,14 @@ export default function RecommendedTopics() {
                   </Card>
                 ))
                 .slice(currentItem.start, currentItem.end)
-            : [1, 2, 3].map((index) => <TopicLoadingCard key={index} />)}
+            ) : (
+              [1, 2, 3].map((index) => <TopicLoadingCard key={index} />)
+            )
+          ) : (
+            <div className="text-2xl text-center col-span-1 sm:col-span-2 lg:col-span-3">
+              No Topics Available...{" "}
+            </div>
+          )}
         </div>
       </div>
       <Pagination
@@ -55,7 +82,9 @@ export default function RecommendedTopics() {
 }
 
 export function Topics() {
-  const [topics, isLoading] = useFetchData("/src/data/programming_topics.json");
+  const { data, isLoading, setIsLoading } = useFetchData(
+    "/src/data/programming_topics.json"
+  );
   const [page, setPage] = useState(8);
 
   const { pathname } = useLocation();
@@ -69,14 +98,14 @@ export function Topics() {
       <Button title="Programming" btnColor="gradientBtnColor" />
       {!isLoading ? (
         <InfiniteScroll
-          dataLength={topics.length}
-          hasMore={page <= topics.length ? true : false}
+          dataLength={data.length}
+          hasMore={page <= data.length ? true : false}
           next={() => setPage(page + 8)}
           loader={<h1>Loading...</h1>}
           endMessage={<section className={`${styles.sectionFooter}`}></section>}
           className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {topics.map((topic, index) => (
+          {data.map((topic, index) => (
             <Card key={index} img={topic.image_link}>
               <h3 className="text-xl w-5/6 font-inter font-bold">
                 {topic.title}
