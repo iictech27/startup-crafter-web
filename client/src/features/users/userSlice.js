@@ -7,6 +7,27 @@ const initialState = {
   error: null,
 };
 
+//unfollow
+export const unFollowUser = createAsyncThunk(
+  "users/unFollowUser",
+  async (data, { rejectWithValue }) => {
+    console.log(data);
+    const res = await axios.post("/api/v1/user/unFollow-user", data, {
+      withCredentials: true,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    try {
+      console.log(res.data);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
 //follow
 export const followUser = createAsyncThunk(
   "users/followUser",
@@ -85,6 +106,20 @@ export const userSlice = createSlice({
       state.users.following.push(action.payload);
     });
     builder.addCase(followUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    //handle unfollow user
+    builder.addCase(unFollowUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(unFollowUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.users.following.pull(action.payload);
+    });
+    builder.addCase(unFollowUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
