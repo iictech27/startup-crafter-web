@@ -5,6 +5,7 @@ import adminReducer from "../features/users/adminSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
+import studyMaterialReducer from "../features/study_material/studyMaterialSlice";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   blog: userBlogReducer,
   admin: adminReducer,
+  studyMaterial: studyMaterialReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
