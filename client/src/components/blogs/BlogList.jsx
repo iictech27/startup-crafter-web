@@ -11,12 +11,16 @@ import { followUser, saveBlog } from "../../features/users/userSlice.js";
 export default function BlogsList({ blogs_data, loadingState, errors }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  //array of users who are followed by current user
   const followingUsers = useSelector(
     (state) => state.user.users && state.user.users.following
   );
+  // console.log("Current user is following ", followingUsers);
 
   //current user _id
   const { uuid } = useSelector((state) => state.user.users || {});
+  // console.log("Current user's uuid ", uuid);
 
   //save blog
   const handleSaveBlog = (blogId) => {
@@ -47,7 +51,7 @@ export default function BlogsList({ blogs_data, loadingState, errors }) {
         {!loadingState
           ? blogs_data.map((blog, index) => (
               <Card
-                img={`http://localhost:8000/api/v1/${blog.image}`}
+                img={blog.image}
                 key={index}
                 className="w-full p-0 rounded-[30px] bg-indigo-50 border-1 border-black font-inter"
               >
@@ -115,7 +119,7 @@ export default function BlogsList({ blogs_data, loadingState, errors }) {
                         onClick={() => handleFollow(blog.createdBy.uuid)}
                       >
                         <span className="font-bold">
-                          {followingUsers
+                          {followingUsers?.length > 0
                             ? followingUsers.filter(
                                 (fu) => fu.uuid === blog.createdBy.uuid
                               )
