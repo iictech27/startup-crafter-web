@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../utils/uploader.js");
+const authHandler = require("../middlewares/authHandler.js");
 const {
   registerUser,
   loginUser,
@@ -15,11 +16,13 @@ const {
   saveBlog,
   getIndividualBlog,
 } = require("../controllers/user/blog.controller.js");
-const authHandler = require("../middlewares/authHandler.js");
 const {
   unFollowUser,
   followUser,
 } = require("../controllers/user/userfollow.controller.js");
+const {
+  getAllTopics,
+} = require("../controllers/user/study_material.controller.js");
 
 //authentication
 router.route("/user-register").post(registerUser);
@@ -55,5 +58,6 @@ router
 //idea
 
 //study material
+router.route("/user/get-all-topics").get(getAllTopics);
 
 module.exports = router;
