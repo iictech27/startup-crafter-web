@@ -4,13 +4,25 @@ const User = require("../../models/user.model");
 const asyncHandler = require("../../utils/asyncHandler");
 const { ApiError, NotFoundError } = require("../../utils/customErrorHandler");
 const ResponseHandler = require("../../utils/responseHandler");
+const uploadFileOnCloudinary = require("../../utils/cloudinary");
 
 const createBlog = asyncHandler(async (req, res) => {
   const { creatorId, title, content, tags } = req.body;
-  const image = req.file?.path;
+  let image = req.file?.path;
 
   if (!creatorId || !title || !content) {
     throw new ApiError(400, "All fields are required!");
+  }
+
+  //set a default image if image is not uploaded
+  if (!image) {
+    image = "public\\uploads\\dummy_blog.jpg";
+  }
+
+  const blog_image = await uploadFileOnCloudinary(image);
+
+  if (!blog_image) {
+    throw new ApiError(500, "Blog Image not uploaded ! Something went wrong !");
   }
 
   //find if the creatorId exists or not
@@ -28,7 +40,7 @@ const createBlog = asyncHandler(async (req, res) => {
     slug: slugify(title, { lower: true }),
     content,
     tags: tagsArray,
-    image,
+    image: blog_image,
   });
 
   //checking if blog is created successfully
