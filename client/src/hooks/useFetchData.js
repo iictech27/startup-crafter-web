@@ -7,16 +7,16 @@ export default function useFetchData(url) {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(url, {
+      const res = await fetch(url, {
         headers: {
           Accept: "application/json",
         },
       });
-      setData(res.data.data);
+      const data = await res.json();
+      setData(data);
+      setLoading(false);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
   useEffect(() => {
