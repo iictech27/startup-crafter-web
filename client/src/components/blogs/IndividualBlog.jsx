@@ -5,10 +5,7 @@ import blogImage from "../../assets/images/blogImage.png";
 import BlogComments from "./BlogComments";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchIndividualBlog,
-  fetchIndividualBlogRedux,
-} from "../../features/blog/userBlogSlice";
+import { fetchIndividualBlog } from "../../features/blog/userBlogSlice";
 import getDate from "../../utils/getDate";
 import { saveBlog } from "../../features/users/userSlice";
 
@@ -41,7 +38,7 @@ export default function IndividualBlog() {
 
   useEffect(() => {
     if (blogs) {
-      dispatch(fetchIndividualBlogRedux(blogs));
+      dispatch(fetchIndividualBlog(blogs));
       setViewCount(viewCount + 1);
       console.log(blogDetails);
     }

@@ -21,11 +21,14 @@ export default function SavedBlogs() {
   console.log(savedBlogs && savedBlogs);
 
   useEffect(() => {
+    dispatch(fetchUserSavedBlogs(savedBlogsId));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (savedBlogsId.length > 0) {
-      setSavedBlogsAvailable(!savedBlogsAvailable);
-      dispatch(fetchUserSavedBlogs(savedBlogsId));
+      setSavedBlogsAvailable(true);
     }
-  }, [dispatch, savedBlogsId]);
+  }, [savedBlogsId]);
 
   return (
     <>

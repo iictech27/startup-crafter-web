@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllBlogs } from "../../features/blog/userBlogSlice";
 import BlogsList from "./BlogList";
 import { Link } from "react-router-dom";
+import { fetchAllBlogs } from "../../features/blog/userBlogSlice";
 
 export default function AllBlogs() {
   const dispatch = useDispatch();
-  const { blogs, loading, error } = useSelector((state) => state.blog);
+  const { blogs, loading, error } = useSelector((state) => state.blog || {});
 
   // console.log(blogs);
   const [blogsAvailable, setBlogsAvailable] = useState(false);
 
   useEffect(() => {
-    if (blogs.length > 0) {
-      dispatch(fetchAllBlogs());
-      setBlogsAvailable(!blogsAvailable);
-    }
+    dispatch(fetchAllBlogs());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (blogs.length > 0) {
+      setBlogsAvailable(true);
+    }
+  }, [blogs]);
 
   return (
     <>
