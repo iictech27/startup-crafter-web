@@ -1,16 +1,18 @@
 import styles from "../../style";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Card from "../../layout/Card";
 import Pagination from "../Pagination";
 import Button from "../Button";
-import useFetchData from "../../hooks/useFetchData";
 import usePagination from "../../hooks/usePagination";
 import TopicLoadingCard from "./TopicLoadingCard";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchAllTopics } from "../../features/study_material/studyMaterialSlice";
+import {
+  fetchAllTopics,
+  fetchSubTopics,
+} from "../../features/study_material/studyMaterialSlice";
 
 export default function RecommendedTopics() {
   const dispatch = useDispatch();
@@ -50,7 +52,7 @@ export default function RecommendedTopics() {
                       {topic?.description.substring(0, 200)}...
                     </p>
                     <Link
-                      to={topic?.title.split(" ").join("-").toLowerCase()}
+                      to={topic?.uuid}
                       className="text-pink-600 text-xl flex items-center gap-x-2"
                     >
                       <span className="underline">Start this track</span>{" "}
@@ -82,49 +84,73 @@ export default function RecommendedTopics() {
 }
 
 export function Topics() {
-  const { data, isLoading, setIsLoading } = useFetchData(
-    "/src/data/programming_topics.json"
+  const { topic } = useParams();
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const { subTopics, loading, error } = useSelector(
+    (state) => state.studyMaterial || {}
   );
+  console.log(subTopics);
+
+  const [subTopicsAvailable, setSubTopicsAvailable] = useState(false);
   const [page, setPage] = useState(8);
 
-  const { pathname } = useLocation();
+  useEffect(() => {
+    dispatch(fetchSubTopics(topic));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (subTopics.length > 0) {
+      setSubTopicsAvailable(true);
+    }
+  }, [subTopics]);
 
   useEffect(() => {
     window.scrollTo(0, 750);
   }, [pathname]);
 
+  if (error) return <div>Error : {error}</div>;
+
   return (
     <div className="flex flex-col items-center">
-      <Button title="Programming" btnColor="gradientBtnColor" />
-      {!isLoading ? (
-        <InfiniteScroll
-          dataLength={data.length}
-          hasMore={page <= data.length ? true : false}
-          next={() => setPage(page + 8)}
-          loader={<h1>Loading...</h1>}
-          endMessage={<section className={`${styles.sectionFooter}`}></section>}
-          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {data.map((topic, index) => (
-            <Card key={index} img={topic.image_link}>
-              <h3 className="text-xl w-5/6 font-inter font-bold">
-                {topic.title}
-              </h3>
-              <p className="text-blue-900">{topic.description}...</p>
-              <div className="text-pink-600 text-xl flex items-center gap-x-2">
-                <Link to={topic.title.split(" ").join("-").toLowerCase()}>
-                  <span className="underline">Start this track</span>
-                </Link>{" "}
-                <i className="fa-solid fa-circle-arrow-right"></i>
-              </div>
-            </Card>
-          ))}
-        </InfiniteScroll>
+      <Button title={subTopics[0]?.topic} btnColor="gradientBtnColor" />
+      {subTopicsAvailable ? (
+        !loading ? (
+          <InfiniteScroll
+            dataLength={subTopics.length}
+            hasMore={page <= subTopics.length ? true : false}
+            next={() => setPage(page + 8)}
+            loader={<h1>Loading...</h1>}
+            endMessage={
+              <section className={`${styles.sectionFooter}`}></section>
+            }
+            className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {subTopics.map((topic, index) => (
+              <Card key={index} img={topic?.cover_image}>
+                <h3 className="text-xl w-5/6 font-inter font-bold">
+                  {topic?.title}
+                </h3>
+                <p className="text-blue-900">{topic?.description}...</p>
+                <div className="text-pink-600 text-xl flex items-center gap-x-2">
+                  <Link to={topic?.uuid}>
+                    <span className="underline">Start this track</span>
+                  </Link>{" "}
+                  <i className="fa-solid fa-circle-arrow-right"></i>
+                </div>
+              </Card>
+            ))}
+          </InfiniteScroll>
+        ) : (
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((index) => (
+              <TopicLoadingCard key={index} />
+            ))}
+          </div>
+        )
       ) : (
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map((index) => (
-            <TopicLoadingCard key={index} />
-          ))}
+        <div className="text-2xl text-center col-span-1 sm:col-span-2 lg:col-span-3">
+          No Topics Available...{" "}
         </div>
       )}
     </div>
