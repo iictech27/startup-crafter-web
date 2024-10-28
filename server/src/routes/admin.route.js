@@ -9,6 +9,9 @@ const {
 const authHandler = require("../middlewares/authHandler.js");
 const {
   createTopic,
+  createSubTopic,
+  createUnit,
+  createModule,
 } = require("../controllers/admin/study_material.controller.js");
 const upload = require("../utils/uploader.js");
 
@@ -29,6 +32,23 @@ router
     authHandler({ userType: "admin" }),
     upload.single("image"),
     createTopic
+  );
+router
+  .route("/admin/study-material/create-subtopic/:topicId")
+  .post(
+    authHandler({ userType: "admin" }),
+    upload.single("image"),
+    createSubTopic
+  );
+router
+  .route("/admin/study-material/create-unit/:subTopicId")
+  .post(authHandler({ userType: "admin" }), upload.single("image"), createUnit);
+router
+  .route("/admin/study-material/create-module/:unitId")
+  .post(
+    authHandler({ userType: "admin" }),
+    upload.single("contentFile"),
+    createModule
   );
 
 module.exports = router;
