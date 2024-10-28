@@ -22,6 +22,9 @@ const {
 } = require("../controllers/user/userfollow.controller.js");
 const {
   getAllTopics,
+  getSubTopics,
+  getUnits,
+  getModules,
 } = require("../controllers/user/study_material.controller.js");
 
 //authentication
@@ -59,5 +62,8 @@ router
 
 //study material
 router.route("/user/get-all-topics").get(getAllTopics);
+router.route("/user/get-subtopics/:topicId").get(getSubTopics);
+// router.route("/user/get-units/:subTopicId").get(getUnits);
+// router.route("/user/get-modules/:unitId").get(getModules);
 
 module.exports = router;
