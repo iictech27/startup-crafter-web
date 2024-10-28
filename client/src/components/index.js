@@ -22,7 +22,6 @@ import PageMarker from "./study_material/separate_material/PageMarker";
 import UnitCard from "./study_material/separate_material/UnitCard";
 import ProgressBar from "./ProgressBar";
 import Pagination from "./Pagination";
-import ContentTab from "./study_material/separate_material/separate_unit/ContentTab";
 import Stage from "./add_event/Stage";
 import Idea from "./idea/Idea";
 import EventCard from "./events/main/EventCard";
@@ -57,7 +56,6 @@ export {
   UnitCard,
   ProgressBar,
   Pagination,
-  ContentTab,
   Stage,
   Idea,
   AllEvents,
