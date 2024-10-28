@@ -1,52 +1,105 @@
-import { PageMarker, ContentTab } from "../components/index";
-import { Outlet, useParams } from "react-router-dom";
+import { PageMarker } from "../components/index";
+import { NavLink, useParams } from "react-router-dom";
 import styles from "../style.js";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUnitDetail } from "../features/study_material/studyMaterialSlice.js";
+import { useEffect, useState } from "react";
 //images and vectors
 import frontenddev from "../assets/images/frontenddev.png";
 import spmsvg from "../assets/vectors/spmsvg.png";
-import useFetchData from "../hooks/useFetchData.js";
 
 export default function SeparateUnit() {
   const { separateUnit } = useParams();
-  const [unit, isLoading] = useFetchData("/src/data/unit.json");
-  const title = !isLoading && unit[0].units[0].title;
-  const content = !isLoading && unit[0].units[0].learnings;
+  const dispatch = useDispatch();
+  const { unitDetail, loading, error } = useSelector(
+    (state) => state.studyMaterial || {}
+  );
+  // console.log(unitDetail);
+  const [unitDetailAvailable, setUnitAvailable] = useState(false);
+  const initialModule =
+    unitDetail.modules.length > 0 ? unitDetail.modules[0] : null;
+  const [selectedModule, setSelectedModule] = useState(initialModule);
+
+  useEffect(() => {
+    dispatch(fetchUnitDetail(separateUnit));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (unitDetail) {
+      setUnitAvailable(true);
+    }
+  }, [unitDetail]);
+
+  if (error) return <div>Error : {error}</div>;
 
   return (
     <section className="">
       {/* Hero Section */}
-      <div
-        className="head_section min-h-[20vw] flex flex-col justify-center items-center gap-y-4 bg-cover bg-no-repeat relative z-10 p-8"
-        style={{ backgroundImage: `url(${frontenddev})` }}
-      >
-        <h1 className="mt-5 lg:mt-0 text-3xl md:text-5xl font-semibold">
-          {title}
-        </h1>
-        <p className="md:w-1/2 text-base sm:text-lg">{content.desc}</p>
-        <PageMarker>{separateUnit.split("-").join(" ")}</PageMarker>
-      </div>
-
-      {/* Main Section */}
-      <section
-        className={`relative ${styles.section} justify-center gap-y-10 ${styles.paddingY} ${styles.marginX}`}
-      >
-        <div className="content flex-col justify-center items-center p-3 gap-y-8">
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 relative z-10">
-            {!isLoading &&
-              unit[0].units[0].learnings.topics.map((topic, index) => (
-                <ContentTab topic={topic} key={index} />
-              ))}
+      {unitDetailAvailable ? (
+        <>
+          <div
+            className="head_section min-h-[20vw] flex flex-col justify-center items-center gap-y-4 bg-cover bg-no-repeat relative z-10 p-8"
+            style={{ backgroundImage: `url(${frontenddev})` }}
+          >
+            <h1 className="mt-5 lg:mt-0 text-3xl md:text-5xl font-semibold">
+              {!loading && unitDetail.title}
+            </h1>
+            <p className="md:w-1/2 text-base sm:text-lg">
+              {!loading && unitDetail.description2}
+            </p>
+            <PageMarker>{!loading && unitDetail.title}</PageMarker>
           </div>
-        </div>
-        <div className="w-full md:w-[70vw] mx-auto relative z-10">
-          <Outlet />
-        </div>
-        <img
-          src={spmsvg}
-          alt="spm vector"
-          className="absolute -top-[10rem] -left-[10rem] rotate-[270deg]"
-        />
-      </section>
+
+          {/* Main Section */}
+          <section
+            className={`relative ${styles.section} justify-center gap-y-10 ${styles.paddingY} ${styles.marginX}`}
+          >
+            <div className="content flex-col justify-center items-center p-3 gap-y-8">
+              <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 relative z-10">
+                {!loading &&
+                  unitDetail.modules.map((module, index) => (
+                    <NavLink
+                      key={index}
+                      to="#"
+                      onClick={() => setSelectedModule(module)}
+                      className={({ isActive }) =>
+                        `content_tabs ${
+                          isActive
+                            ? "gradientBtnColor text-white"
+                            : "bg-white text-black border-gray-600"
+                        } font-semibold w-[12rem] px-2 py-1.5 rounded-xl shadow-md border cursor-pointer flex items-center gap-x-2`
+                      }
+                    >
+                      <i className="fa-solid fa-circle-check text-2xl text-gray-600"></i>
+                      <span>{module.title}</span>
+                    </NavLink>
+                  ))}
+              </div>
+            </div>
+            <div className="w-full md:w-[70vw] mx-auto relative z-10">
+              <div className="main_content p-3 md:p-8 h-screen bg-gray-100 flex flex-col items-end">
+                <div className="text-center self-center flex-1">
+                  {selectedModule ? (
+                    <div>
+                      <p>{selectedModule.content}</p>{" "}
+                      {/* Displaying the content of the selected module */}
+                    </div>
+                  ) : (
+                    <p className="text-3xl">No Content found</p> // Default text when no module is selected
+                  )}
+                </div>
+              </div>
+            </div>
+            <img
+              src={spmsvg}
+              alt="spm vector"
+              className="absolute -top-[10rem] -left-[10rem] rotate-[270deg]"
+            />
+          </section>
+        </>
+      ) : (
+        <p>Not Found</p>
+      )}
     </section>
   );
 }
