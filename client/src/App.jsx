@@ -24,7 +24,6 @@ import {
 import Layout from "./layout/Layout";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import SeparateUnit from "./pages/SeparateUnit.jsx";
-import MainContent from "./components/study_material/separate_material/separate_unit/MainContent.jsx";
 import {
   Topics,
   BlogEditor,
@@ -77,10 +76,7 @@ function App() {
           <Route
             path="study-material/:topic/:separateTopic/:separateUnit"
             element={<SeparateUnit />}
-          >
-            <Route index element={<MainContent />} />
-            <Route path=":eachUnit" element={<MainContent />} />
-          </Route>
+          />
           <Route exact path="/events" element={<Event />}>
             <Route index element={<AllEvents />} />
             <Route
