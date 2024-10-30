@@ -19,7 +19,7 @@ const ideaSchema = new Schema(
     },
     title: {
       type: String,
-      required: [true, "Blog Title is needed"],
+      required: [true, "Idea Title is needed"],
     },
     description: {
       type: String,
@@ -30,9 +30,24 @@ const ideaSchema = new Schema(
     QA: {
       type: String,
     },
+    feedback: {
+      type: String,
+    },
+    ratings: {
+      type: Number,
+    },
+    isFeedbackGiven: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
+
+ideaSchema.pre("save", function (next) {
+  this.isFeedbackGiven = this.feedback ? true : false;
+  next();
+});
 
 const Idea = mongoose.model("Idea", ideaSchema);
 module.exports = Idea;
