@@ -18,7 +18,10 @@ const {
   deleteModule,
 } = require("../controllers/admin/study_material.controller.js");
 const upload = require("../utils/uploader.js");
-const { getAllIdeas } = require("../controllers/admin/idea.controller.js");
+const {
+  getAllIdeas,
+  sendFeedback,
+} = require("../controllers/admin/idea.controller.js");
 
 //authentication
 router.route("/add-admin").post(addAdmin);
@@ -35,6 +38,10 @@ router
 router
   .route("/admin/get-all-ideas")
   .get(authHandler({ userType: "admin" }), getAllIdeas);
+//send feedback to specific idea
+router
+  .route("/admin/send-idea-feedback")
+  .post(authHandler({ userType: "admin" }), sendFeedback);
 
 //manage study material
 //create
