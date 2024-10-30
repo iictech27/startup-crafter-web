@@ -1,61 +1,116 @@
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./IdeaFeedback.module.css";
+import { useEffect, useState } from "react";
+import {
+  fetchIdeaForReview,
+  sendFeedback,
+} from "../../features/ideas/ideaSlice";
 
 export default function IdeaFeedback() {
+  const dispatch = useDispatch();
+  const idea = useSelector((state) => state.idea.reviewIdea || null);
+  // console.log(idea);
+  const [ideaId, setIdeaId] = useState(null);
+  const [feedback, setFeedback] = useState({
+    feedback: "",
+    ratings: 0,
+  });
+  const [isFeedbackSent, setFeedbackSent] = useState(false);
+
+  const handleClick = (index) => {
+    setFeedback({ ...feedback, ratings: index + 1 });
+  };
+
+  const handleSubmitFeedback = (e) => {
+    e.preventDefault();
+    dispatch(sendFeedback({ ...feedback, ideaId: idea.uuid }));
+
+    setFeedbackSent(true);
+  };
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const idea = urlParams.get("idea");
+
+    setIdeaId(idea);
+  }, [ideaId]);
+
+  useEffect(() => {
+    dispatch(fetchIdeaForReview(ideaId));
+  }, [dispatch, ideaId]);
+
   return (
     <main className={styles.main}>
-      <div className={styles.idea_card}>
-        <div className={styles.user_info}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src="assets/placeholder.png"
-              alt="User"
-              className={styles.user_profile_pic}
-            />
-            <span className={styles.username}>username</span>
-          </div>
-          <h2 className={styles.idea_title}>Idea Title</h2>
-        </div>
-
-        <p className={styles.idea_description}>
-          Faucibus lorem, quis adipiscing laoreet ipsum ac urna venenatis
-          tincidunt odio vehicula, tincidunt est. Nam maximus leo. Nam enim,
-          orci nec sollicitudin, quis libero, consectetur sodales. Ut leo. Nibh
-          at tincidunt massa diam lacus, non faucibus Morbi odio ex sapien Lorem
-          Quisque maximus ullamcorper viverra non dui massa urna lorem. quis
-          Praesent ac vehicula, gravida urna vitae dignissim, placerat. sodales.
-          sollicitudin. non elit tortor. facilisis diam nisi odio odio non
-          faucibus lorem. quis adipiscing laoreet ipsum ac urna venenatis
-          tincidunt odio vehicula, tincidunt est. Nam maximus leo. Nam enim,
-          orci nec sollicitudin, quis libero, consectetur sodales. Ut leo. Nibh
-          at tincidunt massa diam lacus, non faucibus Morbi odio ex sapien Lorem
-          Quisque maximus ullamcorper viverra non dui massa urna lorem. quis
-          Praesent ac vehicula, gravida urna vitae dignissim, placerat. sodales.
-          sollicitudin. non elit tortor. facilisis diam nisi odio odio non
-        </p>
-        <div className={styles.attachment}>
-          <span>Attachments:</span>
-          <button className={styles.attachment_button}>Idea.pdf</button>
-        </div>
-        <div className={styles.feedback_section}>
-          <textarea
-            placeholder="Enter your feedback..."
-            className={styles.feedback_textarea}
-          ></textarea>
-          <div className={styles.rating}>
-            <span>Ratings:</span>
-            <div className={styles.stars}>
-              {Array(5)
-                .fill(0)
-                .map((_, index) => (
-                  <span key={index} className={styles.star}>
-                    ★
-                  </span>
-                ))}
+      {idea ? (
+        isFeedbackSent || idea.isFeedbackGiven ? (
+          <p>Feedback sent !</p>
+        ) : (
+          <div className={styles.idea_card}>
+            <div className={styles.user_info}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src="assets/placeholder.png"
+                  alt="User"
+                  className={styles.user_profile_pic}
+                />
+                <span className={styles.username}>
+                  {idea?.submittedBy.fullName}
+                </span>
+              </div>
+              <h2 className={styles.idea_title}>Title : {idea?.title}</h2>
             </div>
+
+            <p className={styles.idea_description}>{idea?.description}</p>
+            <div className={styles.attachment}>
+              <span>Attachments:</span>
+              <a
+                href={idea?.document}
+                download="Idea.pdf"
+                className={styles.attachment_button}
+              >
+                Idea.pdf
+              </a>
+            </div>
+            <form className={styles.feedback_section}>
+              <textarea
+                value={feedback.feedback}
+                onChange={(e) =>
+                  setFeedback({ ...feedback, feedback: e.target.value })
+                }
+                placeholder="Enter your feedback..."
+                className={styles.feedback_textarea}
+              ></textarea>
+              <div className={styles.rating}>
+                <span>Ratings:</span>
+                <div className={styles.stars}>
+                  {Array(5)
+                    .fill(0)
+                    .map((_, index) => (
+                      <span
+                        key={index}
+                        className={`${styles.star} ${
+                          index < feedback.ratings ? "" : styles.filled
+                        }`}
+                        onClick={() => handleClick(index)}
+                      >
+                        ★
+                      </span>
+                    ))}
+                </div>
+              </div>
+            </form>
+            <button
+              onClick={handleSubmitFeedback}
+              className={styles.submit_button}
+            >
+              Submit
+            </button>
           </div>
-        </div>
-        <button className={styles.submit_button}>Submit</button>
-      </div>
+        )
+      ) : (
+        <p>Idea not found !</p>
+      )}
     </main>
   );
 }
