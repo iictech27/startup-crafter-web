@@ -3,6 +3,8 @@ import axios from "axios";
 
 const initialState = {
   ideas: [],
+  reviewIdea: null,
+  feedbacks: [],
   loading: false,
   error: null,
 };
@@ -91,10 +93,36 @@ export const fetchAllIdeas = createAsyncThunk(
   }
 );
 
+//send feedback to specific idea
+export const sendFeedback = createAsyncThunk(
+  "admin/sendFeedback",
+  async (data, { rejectWithValue }) => {
+    console.log(data);
+    const res = await axios.post("/api/v1/admin/send-idea-feedback", data, {
+      withCredentials: true,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    try {
+      console.log(res.data);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
 export const ideaSlice = createSlice({
   name: "ideas",
   initialState,
   reducers: {
+    fetchIdeaForReview: (state, action) => {
+      state.reviewIdea = state.ideas.find(
+        (idea) => idea.uuid === action.payload
+      );
+    },
     clearIdeas: (state, action) => {
       state.ideas = [];
     },
@@ -147,8 +175,13 @@ export const ideaSlice = createSlice({
       state.loading = false;
       state.ideas.push(action.payload);
     });
+    //handle sending feedback
+    builder.addCase(sendFeedback.fulfilled, (state, action) => {
+      state.loading = false;
+      state.feedbacks.push(action.payload);
+    });
   },
 });
 
-export const { clearIdeas } = ideaSlice.actions;
+export const { fetchIdeaForReview, clearIdeas } = ideaSlice.actions;
 export default ideaSlice.reducer;
