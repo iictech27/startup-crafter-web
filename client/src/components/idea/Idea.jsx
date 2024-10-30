@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./Idea.module.css";
 
 export default function Idea({
@@ -6,9 +6,8 @@ export default function Idea({
   ideaTitle,
   ideaDescription,
   ideaOwner,
+  ideaId,
 }) {
-  const navigate = useNavigate();
-
   return (
     <>
       <div className={styles.idea}>
@@ -32,7 +31,10 @@ export default function Idea({
               Idea.pdf
             </a>
           </div>
-          <button onClick={() => navigate("/feedback")}> Give Feedback </button>
+          <Link to={`/admin/idea-feedback?idea=${ideaId}`}>
+            {" "}
+            Give Feedback{" "}
+          </Link>
         </div>
       </div>
     </>
