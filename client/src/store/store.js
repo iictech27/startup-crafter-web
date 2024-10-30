@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/users/userSlice";
 import userBlogReducer from "../features/blog/userBlogSlice";
+import ideaReducer from "../features/ideas/ideaSlice";
 import adminReducer from "../features/users/adminSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   blog: userBlogReducer,
   admin: adminReducer,
   studyMaterial: studyMaterialReducer,
+  idea: ideaReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
