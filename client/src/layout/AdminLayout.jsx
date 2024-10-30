@@ -8,6 +8,7 @@ import styles from "../style.js";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { clearAdmin } from "../features/users/adminSlice";
+import { clearIdeas } from "../features/ideas/ideaSlice.js";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -27,18 +28,19 @@ export default function AdminLayout() {
   }, []);
 
   const logout = async () => {
-    const res = await axios
-      .post("/api/v1/admin-logout", { withCredentials: true })
-      .then((res) => {
-        console.log(res);
-        dispatch(clearAdmin());
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error(error);
+    try {
+      const res = await axios.post("/api/v1/admin-logout", {
+        withCredentials: true,
       });
+      console.log(res);
 
-    console.log(res);
+      dispatch(clearIdeas());
+      dispatch(clearAdmin());
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

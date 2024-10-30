@@ -8,6 +8,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../features/users/userSlice";
 import { clearBlogs } from "../features/blog/userBlogSlice";
+import { clearIdeas } from "../features/ideas/ideaSlice";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function UserProfile() {
         console.log(res);
         dispatch(clearUser());
         dispatch(clearBlogs());
+        dispatch(clearIdeas());
         navigate("/");
       })
       .catch((error) => {
