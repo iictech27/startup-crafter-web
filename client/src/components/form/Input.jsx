@@ -8,6 +8,7 @@ export default function Input({
   value,
   onChange,
   className,
+  required,
 }) {
   const [isPasswordOpen, setPasswordOpen] = useState(false);
 
@@ -34,6 +35,7 @@ export default function Input({
               value={value}
               onChange={onChange}
               placeholder={placeholder}
+              required={required ? required : false}
               className={`mt md:mt-2 w-full p-1.5 md:p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring`}
             />
             <i
@@ -51,6 +53,7 @@ export default function Input({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
+            required={required ? required : false}
             className={`mt md:mt-2 w-full p-1.5 md:p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring`}
           />
         )}
@@ -59,7 +62,15 @@ export default function Input({
   );
 }
 
-export function TextArea({ label, className, rows, cols }) {
+export function TextArea({
+  label,
+  className,
+  rows,
+  cols,
+  value,
+  required,
+  onChange,
+}) {
   return (
     <>
       <label className="ml-2 text-base sm:text-lg md:text-xl capitalize">
@@ -69,17 +80,20 @@ export function TextArea({ label, className, rows, cols }) {
         className={`mt md:mt-2 w-full p-1.5 md:p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring ${className}`}
         rows={rows ? rows : "7"}
         cols={cols ? cols : "50"}
+        value={value}
+        onChange={onChange}
+        required={required ? required : false}
       ></textarea>
     </>
   );
 }
 
-export function FileUpload({ label, className, content }) {
+export function FileUpload({ label, className, content, required, onChange }) {
   return (
     <>
       <label
         htmlFor={label.replace(" ", "_")}
-        className={`col-span-2 p-2 border-2 border-orange-700 rounded-md text-orange-700 font-semibold relative after:absolute after:right-0 after:top-10 ${
+        className={`cursor-pointer p-2 border-2 border-orange-700 rounded-md text-orange-700 font-semibold relative after:absolute after:right-0 after:top-10 ${
           content === "poster" &&
           "after:content-['pdf,png,jpeg'] after:tracking-wider after:ml-0.5 after:text-gray-500 after:font-normal"
         } ${className}`}
@@ -92,6 +106,8 @@ export function FileUpload({ label, className, content }) {
         id={label.replace(" ", "_")}
         name={label.replace(" ", "_")}
         className="hidden"
+        required={required ? required : false}
+        onChange={onChange}
       />
     </>
   );
