@@ -44,7 +44,7 @@ export default function Header() {
       } flex flex-row-reverse sm:flex-row justify-between items-center ${
         isNavFixed
           ? "fixed top-0 w-full py-2 lg:py-3 bg-gray-50 z-50 shadow-md transition ease-in-out"
-          : "py-6 lg:py-8"
+          : "py-3 sm:py-6 lg:py-8"
       }`}
     >
       <div className="flex justify-center sm:justify-start items-center flex-1">
