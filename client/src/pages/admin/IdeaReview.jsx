@@ -1,7 +1,28 @@
 import styles from "./IdeaReview.module.css";
 import { Idea } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchAllIdeas } from "../../features/ideas/ideaSlice";
 
 export default function IdeaReview() {
+  const { ideas, loading, error } = useSelector((state) => state.idea || {});
+  const dispatch = useDispatch();
+
+  const [ideasAvailable, setIdeasAvailable] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchAllIdeas());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (ideas.length > 0) {
+      setIdeasAvailable(true);
+    }
+  }, [ideas]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error : {error}</div>;
+
   return (
     <div className={styles.container}>
       <div className={styles.right}>
@@ -22,9 +43,19 @@ export default function IdeaReview() {
         </div>
 
         <div className={styles.ideas}>
-          <Idea />
-          <Idea />
-          <Idea />
+          {ideasAvailable ? (
+            ideas.map((idea, index) => (
+              <Idea
+                key={index}
+                filePath={idea.document}
+                ideaDescription={idea.description}
+                ideaTitle={idea.title}
+                ideaOwner={idea.submittedBy.fullName}
+              />
+            ))
+          ) : (
+            <p>No idea has been submitted yet.</p>
+          )}
         </div>
       </div>
     </div>
