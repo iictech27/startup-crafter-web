@@ -12,8 +12,13 @@ const {
   createSubTopic,
   createUnit,
   createModule,
+  deleteTopic,
+  deleteSubTopic,
+  deleteUnit,
+  deleteModule,
 } = require("../controllers/admin/study_material.controller.js");
 const upload = require("../utils/uploader.js");
+const { getAllIdeas } = require("../controllers/admin/idea.controller.js");
 
 //authentication
 router.route("/add-admin").post(addAdmin);
@@ -25,7 +30,14 @@ router
   .route("/admin/reset-admin-password")
   .post(authHandler({ userType: "admin" }), changeAdminPassword);
 
+//idea review
+//fetch all ideas
+router
+  .route("/admin/get-all-ideas")
+  .get(authHandler({ userType: "admin" }), getAllIdeas);
+
 //manage study material
+//create
 router
   .route("/admin/study-material/create-topic")
   .post(
@@ -50,5 +62,19 @@ router
     upload.single("contentFile"),
     createModule
   );
+
+//delete
+router
+  .route("/admin/study-material/delete-topic")
+  .delete(authHandler({ userType: "admin" }), deleteTopic);
+router
+  .route("/admin/study-material/delete-subtopic")
+  .delete(authHandler({ userType: "admin" }), deleteSubTopic);
+router
+  .route("/admin/study-material/delete-unit")
+  .delete(authHandler({ userType: "admin" }), deleteUnit);
+router
+  .route("/admin/study-material/delete-module")
+  .delete(authHandler({ userType: "admin" }), deleteModule);
 
 module.exports = router;
