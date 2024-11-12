@@ -37,6 +37,7 @@ export default function useAuth({ authType, initialFormValues }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formValues);
     if (authType === "admin-login") {
       if (formValues.adminName === "") {
         setValidationError({
@@ -54,8 +55,8 @@ export default function useAuth({ authType, initialFormValues }) {
         return;
       }
       if (
-        authType === "user-register" ||
-        (authType === "user-login" && formValues.email === "")
+        (authType === "user-register" || authType === "user-login") &&
+        formValues.email === ""
       ) {
         setValidationError({
           ...validationError,
