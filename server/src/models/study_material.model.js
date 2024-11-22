@@ -9,6 +9,10 @@ const moduleSchema = new Schema(
       default: uuidv4,
       unique: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
     title: {
       type: String,
       required: [true, "Module title is required"],
@@ -26,6 +30,10 @@ const unitSchema = new Schema(
     uuid: {
       type: String,
       default: uuidv4,
+      unique: true,
+    },
+    slug: {
+      type: String,
       unique: true,
     },
     title: {
@@ -57,6 +65,10 @@ const subTopicSchema = new Schema(
       default: uuidv4,
       unique: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
     title: {
       type: String,
       required: [true, "SubTopic title is required"],
@@ -84,6 +96,10 @@ const topicSchema = new Schema(
     uuid: {
       type: String,
       default: uuidv4,
+      unique: true,
+    },
+    slug: {
+      type: String,
       unique: true,
     },
     title: {
