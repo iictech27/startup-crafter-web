@@ -112,3 +112,42 @@ export function FileUpload({ label, className, content, required, onChange }) {
     </>
   );
 }
+
+export function Select({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  className,
+  required,
+}) {
+  return (
+    <div className={`mb-4 w-full relative ${className}`}>
+      <label
+        className="ml-2 text-base sm:text-lg md:text-xl capitalize"
+        htmlFor={name}
+      >
+        {label ? label : name.toUpperCase()}
+      </label>
+
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="mt md:mt-2 w-full p-1.5 md:p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring"
+      >
+        <option value="" disabled>
+          Select an option
+        </option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
