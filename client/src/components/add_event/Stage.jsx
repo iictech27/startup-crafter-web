@@ -1,18 +1,45 @@
+import React from "react";
 import Input, { TextArea } from "../form/Input";
 
-export default function Stage({ stageNo, className, children }) {
+export default function Stage({ stageNo, value, onStageChange }) {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    onStageChange(name, value);
+  };
+
   return (
-    <div
-      className={`stage grid grid-cols-2 gap-4 bg-white mt-4 p-4 ${className}`}
-    >
+    <div className="stage grid grid-cols-2 gap-4 bg-white mt-4 p-4">
       <span className="capitalize text-md text-gray-600">
-        stage {stageNo} info
+        Stage {stageNo} info
       </span>
-      <Input label="title" className="col-span-2" />
-      <TextArea label="description" className="col-span-2" />
-      <Input label="starting date" type="date" />
-      <Input label="ending date" type="date" />
-      {children}
+      <Input
+        label="Title"
+        name="title"
+        value={value?.title || ""}
+        onChange={handleInputChange}
+        className="col-span-2"
+      />
+      <TextArea
+        label="Description"
+        name="description"
+        value={value?.description || ""}
+        onChange={handleInputChange}
+        className="col-span-2"
+      />
+      <Input
+        label="Starting date"
+        type="date"
+        name="startingDate"
+        value={value?.startingDate || ""}
+        onChange={handleInputChange}
+      />
+      <Input
+        label="Ending date"
+        type="date"
+        name="endingDate"
+        value={value?.endingDate || ""}
+        onChange={handleInputChange}
+      />
     </div>
   );
 }
