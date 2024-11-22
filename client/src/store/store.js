@@ -3,6 +3,7 @@ import userReducer from "../features/users/userSlice";
 import userBlogReducer from "../features/blog/userBlogSlice";
 import ideaReducer from "../features/ideas/ideaSlice";
 import adminReducer from "../features/users/adminSlice";
+import eventReducer from "../features/events/eventSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   admin: adminReducer,
   studyMaterial: studyMaterialReducer,
   idea: ideaReducer,
+  event: eventReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
