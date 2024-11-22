@@ -6,14 +6,10 @@ import "react-quill/dist/quill.snow.css";
 import half_circle from "../../assets/vectors/half_circle.png";
 import smFooterVector from "../../assets/vectors/smFooterVector.png";
 import left_texture from "../../assets/vectors/login_texture2.png";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import SelectInput from "../internship_portal/SelectInput";
 import { blog_tags_options } from "../../constants";
-import {
-  createBlog,
-  fetchUserCreatedBlogs,
-} from "../../features/blog/userBlogSlice";
+import { createBlog } from "../../features/blog/userBlogSlice";
 
 const modules = {
   toolbar: [
@@ -85,6 +81,8 @@ const BlogEditor = () => {
     if (blog.image) {
       formData.append("image", blog.image);
     }
+
+    console.log(formData);
 
     dispatch(createBlog(formData));
     // console.log(res);
