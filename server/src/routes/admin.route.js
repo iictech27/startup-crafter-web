@@ -22,6 +22,11 @@ const {
   getAllIdeas,
   sendFeedback,
 } = require("../controllers/admin/idea.controller.js");
+const {
+  addEvent,
+  deleteEvent,
+  editEvent,
+} = require("../controllers/admin/event.controller.js");
 
 //authentication
 router.route("/add-admin").post(addAdmin);
@@ -83,5 +88,26 @@ router
 router
   .route("/admin/study-material/delete-module")
   .delete(authHandler({ userType: "admin" }), deleteModule);
+
+//events
+router.route("/admin/add-event").post(
+  authHandler({ userType: "admin" }),
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "winnerPicture", maxCount: 1 },
+  ]),
+  addEvent
+);
+router
+  .route("/admin/delete-event")
+  .delete(authHandler({ userType: "admin" }), deleteEvent);
+router.route("/admin/edit-event").post(
+  authHandler({ userType: "admin" }),
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "winnerPicture", maxCount: 1 },
+  ]),
+  editEvent
+);
 
 module.exports = router;
