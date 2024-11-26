@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding:20px;
+  padding: 20px;
 }
 
 .feedbacklogo {
@@ -20,9 +20,9 @@
   display: flex;
   align-items: center;
 }
-.profile div{
-  display:flex;
-  flex-direction:column;
+.profile div {
+  display: flex;
+  flex-direction: column;
 }
 .profile_pic {
   width: 40px;
@@ -43,28 +43,25 @@
 .main {
   display: flex;
   justify-content: center;
-  background-color: #F6F7FE;
+  background-color: #f6f7fe;
   padding: 35px;
   border-radius: 30px;
-  width:fit-content;
-  margin:auto;
+  width: 100%;
 }
 
 .idea_card {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  max-width: 900px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
-
 
 .user_info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 10px;
-  gap:220px;
 }
 
 .user_profile_pic {
@@ -75,39 +72,40 @@
 }
 
 .username {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .idea_title {
   font-size: 24px;
-  margin: 10px 0;
-  text-align:center;
+  font-weight: 700;
 }
 
 .idea_description {
-  font-size: 12px;
+  font-size: 1rem;
   color: #555;
   line-height: 1.6;
   margin-bottom: 10px;
-  font-weight:400;
+  font-weight: 400;
 }
 
 .attachment {
-  margin-bottom: 10px;
+  margin: 20px 0;
 }
 
 .attachment_button {
-  margin-left: 10px;
-  background-color: #ddd;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  border: 1px solid black;
+  padding: 2px 15px;
+  border-radius: 20px;
+  margin-left: 15px;
 }
 
 .feedback_section {
   margin-bottom: 10px;
-  width:800px;
+  display: flex;
+  flex-direction: column;
 }
 
 .feedback_textarea {
@@ -119,13 +117,14 @@
   margin-bottom: 10px;
 }
 
-.ratings {
+.ratings_form {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.stars {
-  margin-left: 10px;
+.stars span:first-child {
+  margin-right: 10px;
 }
 
 .star {
@@ -135,10 +134,20 @@
 }
 
 .submit_button {
-  background-color: #007bff;
-  color: #fff;
+  background: linear-gradient(to right, #67bdff, #005394);
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 20px;
+  color: white;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  position: relative;
+  right: 10px;
+}
+
+.feedback_textarea {
+  width: 100%;
 }

@@ -12,8 +12,19 @@ export default function Idea({
     <>
       <div className={styles.idea}>
         <div className={styles.ideaOwner}>
-          <h1>Idea Title : {ideaTitle} </h1>
-          <h1>{ideaOwner}</h1>
+          <h1>{ideaTitle} </h1>
+          <div className={styles.ideaOwnerInfo}>
+            <img src="svsdvsvd" alt="avatar" />
+            <h1>
+              {ideaOwner
+                .split(" ")
+                .map(
+                  (word) =>
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                )
+                .join(" ")}
+            </h1>
+          </div>
         </div>
 
         <div className={styles.ideaDetail}>
@@ -22,7 +33,7 @@ export default function Idea({
 
         <div className={styles.attachments}>
           <div className={styles.attachment}>
-            <span> Attachments</span>
+            <span>Attachments:</span>
             <a
               href={filePath}
               download="Idea.pdf"
@@ -31,7 +42,10 @@ export default function Idea({
               Idea.pdf
             </a>
           </div>
-          <Link to={`/admin/idea-feedback?idea=${ideaId}`}>
+          <Link
+            to={`/admin/idea-feedback?idea=${ideaId}`}
+            className={styles.feedbackBtn}
+          >
             {" "}
             Give Feedback{" "}
           </Link>

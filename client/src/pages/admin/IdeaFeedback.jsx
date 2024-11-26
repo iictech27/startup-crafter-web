@@ -48,17 +48,30 @@ export default function IdeaFeedback() {
         ) : (
           <div className={styles.idea_card}>
             <div className={styles.user_info}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexBasis: "50%",
+                }}
+              >
                 <img
                   src="assets/placeholder.png"
                   alt="User"
                   className={styles.user_profile_pic}
                 />
                 <span className={styles.username}>
-                  {idea?.submittedBy.fullName}
+                  {idea?.submittedBy.fullName
+                    .split(" ")
+                    .map(
+                      (word) =>
+                        word.charAt(0).toUpperCase() +
+                        word.slice(1).toLowerCase()
+                    )
+                    .join(" ")}
                 </span>
               </div>
-              <h2 className={styles.idea_title}>Title : {idea?.title}</h2>
+              <h2 className={styles.idea_title}>{idea?.title}</h2>
             </div>
 
             <p className={styles.idea_description}>{idea?.description}</p>
@@ -81,9 +94,9 @@ export default function IdeaFeedback() {
                 placeholder="Enter your feedback..."
                 className={styles.feedback_textarea}
               ></textarea>
-              <div className={styles.rating}>
-                <span>Ratings:</span>
+              <div className={styles.ratings_form}>
                 <div className={styles.stars}>
+                  <span>Ratings:</span>
                   {Array(5)
                     .fill(0)
                     .map((_, index) => (
@@ -98,14 +111,14 @@ export default function IdeaFeedback() {
                       </span>
                     ))}
                 </div>
+                <button
+                  onClick={handleSubmitFeedback}
+                  className={styles.submit_button}
+                >
+                  Submit
+                </button>
               </div>
             </form>
-            <button
-              onClick={handleSubmitFeedback}
-              className={styles.submit_button}
-            >
-              Submit
-            </button>
           </div>
         )
       ) : (
