@@ -82,7 +82,9 @@ const BlogEditor = () => {
       formData.append("image", blog.image);
     }
 
-    console.log(formData);
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
+    }
 
     dispatch(createBlog(formData));
     // console.log(res);

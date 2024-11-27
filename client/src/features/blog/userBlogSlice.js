@@ -15,12 +15,16 @@ export const createBlog = createAsyncThunk(
   "users/createBlog",
   async (data, { rejectWithValue }) => {
     console.log(data);
-    const res = await axios.post("/api/v1/user/create-blog", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.post(
+      "http://localhost:8000/api/v1/user/create-blog",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
@@ -36,12 +40,15 @@ export const fetchAllBlogs = createAsyncThunk(
   "users/fetchAllBlogs",
   async (_, { rejectWithValue }) => {
     // console.log(data);
-    const res = await axios.get("/api/v1/user/get-all-blogs", {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.get(
+      "http://localhost:8000/api/v1/user/get-all-blogs",
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
