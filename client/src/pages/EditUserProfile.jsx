@@ -1,215 +1,124 @@
 import React, { useState } from "react";
-import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
-import styles from "./EditUserProfile.module.css";
+import Skills from "../components/form/Skills";
+import About from "../components/form/About";
+import Education from "../components/form/Education";
+import Experience from "../components/form/Experience";
+import BasicDetails from "../components/form/BasicDetails";
 
-export default function EditUserProfile() {
-  const [inputData, setInputData] = useState({
-    fullName: "",
+const EditUserProfile = () => {
+  const [activeSection, setActiveSection] = useState("basicDetails");
+  const [profileCompletion, setProfileCompletion] = useState(20);
+
+  // States for various sections
+  const [basicDetails, setBasicDetails] = useState({
+    firstName: "",
     lastName: "",
-    userName: "",
     email: "",
     mobile: "",
-    organisation: "",
-    courseSpecialisation: "",
   });
 
-  function handleInput() {
+  const [about, setAbout] = useState({
+    purpose: "",
+    interests: "",
+    aboutMe: "",
+  });
+
+  const [education, setEducation] = useState([]);
+
+  // Input Handlers
+  const handleInputChange = (e, section, setSection) => {
     const { name, value } = e.target;
+    setSection({ ...section, [name]: value });
+  };
 
-    setInputData({
-      ...inputData,
-      [name]: value,
-    });
-  }
+  const handleSave = (sectionName) => {
+    // Mock save logic, you can replace it with API calls
+    alert(`${sectionName} saved successfully!`);
+    setProfileCompletion(profileCompletion + 20);
+  };
 
-  function getImage() {}
+  // Section Renders
+  const renderBasicDetails = () => (
+    <div>
+      <BasicDetails />
+    </div>
+  );
+
+  const renderAboutSection = () => (
+    <div>
+      <About />
+    </div>
+  );
+
+  const renderSkillsSection = () => (
+    <div>
+      <Skills />
+    </div>
+  );
+
+  const renderEducationSection = () => (
+    <div>
+      <Education />
+    </div>
+  );
+
+  const renderExperienceSection = () => (
+    <div>
+      <Experience />
+    </div>
+  );
+
+  const renderSection = () => {
+    switch (activeSection) {
+      case "basicDetails":
+        return renderBasicDetails();
+      case "about":
+        return renderAboutSection();
+      case "skills":
+        return renderSkillsSection();
+      case "education":
+        return renderEducationSection();
+      case "experience":
+        return renderExperienceSection();
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className={styles.edit_profile}>
-      <div className={styles.left}>
-        <div className={styles.upload_resume}>
-          <label htmlFor={styles.file}>
-            {" "}
-            <img
-              src="../../public/assets/image 26.png"
-              width="300px"
-              style={{ cursor: "pointer" }}
-            />
-          </label>
-          <input
-            type="file"
-            id="file"
-            onChange={getImage}
-            style={{ display: "none" }}
-            multiple
-          />
+    <div className="flex flex-col lg:flex-row min-h-screen gap-4">
+      {/* Sidebar */}
+      <div className="lg:w-1/4 p-4 bg-white lg:fixed shadow-sm  overflow-y-auto">
+        <h2 className="text-lg font-bold mb-4">Complete your profile</h2>
+        <div className="relative w-full h-4 bg-gray-200 rounded-full mb-4">
+          <div
+            className="absolute top-0 left-0 h-full bg-blue-600 rounded-full"
+            style={{ width: `${profileCompletion}%` }}
+          ></div>
         </div>
-
-        <div className={styles.profile_completion}>
-          <h3>Complete your profile</h3>
-          <p>And standout to recruiters!</p>
-          <div className={styles.progress_bar}>
-            <div className={styles.progress} style={{ width: "75%" }}></div>
-          </div>
-        </div>
-
-        <div className={styles.profile_sections}>
-          <div
-            className={`${styles.section} ${styles.active}`}
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
-          >
-            {" "}
-            <HistoryToggleOffIcon />
-            Basic Details
-          </div>
-          <div
-            className={styles.section}
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
-          >
-            {" "}
-            <HistoryToggleOffIcon />
-            About
-          </div>
-          <div
-            className={styles.section}
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
-          >
-            {" "}
-            <HistoryToggleOffIcon />
-            Skills
-          </div>
-          <div
-            className={styles.section}
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
-          >
-            {" "}
-            <HistoryToggleOffIcon />
-            Education
-          </div>
-          <div
-            className={styles.section}
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
-          >
-            {" "}
-            <HistoryToggleOffIcon />
-            Work Experience
-          </div>
-          <div
-            className={styles.section}
-            style={{ display: "flex", alignItems: "center", gap: "5px" }}
-          >
-            <HistoryToggleOffIcon />
-            Responsibilities
-          </div>
+        <div className="space-y-4">
+          {["basicDetails", "about", "skills", "education", "experience", "responsibilities"].map((section) => (
+            <button
+              key={section}
+              onClick={() => setActiveSection(section)}
+              className={`w-full text-left p-3 rounded-md ${
+                activeSection === section
+                  ? "bg-blue-100 text-blue-600"
+                  : "bg-gray-200 text-gray-600"
+              }`}
+            >
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+            </button>
+          ))}
         </div>
       </div>
-      <div className={styles.right}>
-        <div className={styles.basic_details}>
-          <h2>Basic Details</h2>
-          <div style={{ display: "flex" }}>
-            <div className={styles.profile_picture}>
-              <img
-                src="../../public/assets/Ellipse 25.png"
-                alt="Profile"
-                width="500px"
-              />
-            </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-              }}
-            >
-              <div className={styles.input_group}>
-                <label>First Name</label>
-                <input
-                  type="text"
-                  value={inputData.firstName}
-                  onChange={handleInput}
-                />
-              </div>
-              <div className={styles.input_group}>
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  value={inputData.lastName}
-                  onChange={handleInput}
-                />
-              </div>
-              <div className={styles.input_group}>
-                <label>Username</label>
-                <input
-                  type="text"
-                  value={inputData.userName}
-                  onChange={handleInput}
-                  width="70vw"
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.input_group}>
-            <label>Email</label>
-            <input
-              type="email"
-              value={inputData.email}
-              onChange={handleInput}
-            />
-          </div>
-          <div className={styles.input_group}>
-            <label>Mobile</label>
-            <input
-              type="text"
-              value={inputData.mobile}
-              onChange={(e) => handleInput}
-            />
-          </div>
-          <div className={styles.input_group}>
-            <label>Pronouns</label>
-            <div className={styles.pronouns}>
-              <label>
-                <input type="radio" name="pronouns" value="he/him" checked />
-                He/Him/His
-              </label>
-              <label>
-                <input type="radio" name="pronouns" value="she/her" />
-                She/Her
-              </label>
-              <label>
-                <input type="radio" name="pronouns" value="they/them" />
-                Them/They
-              </label>
-              <label>
-                <input type="radio" name="pronouns" value="do-not-show" />
-                Do not want to show
-              </label>
-            </div>
-
-            <div className={styles.input_group}>
-              <label>Course Specialisation</label>
-              <input
-                type="text"
-                value={inputData.courseSpecialisation}
-                onChange={handleInput}
-                width="70vw"
-              />
-            </div>
-
-            <div className={styles.input_group}>
-              <label>Organisation / College</label>
-              <input
-                type="text"
-                value={inputData.organisation}
-                onChange={handleInput}
-                width="70vw"
-              />
-            </div>
-          </div>
-        </div>
-
-        <button className={styles.save_button}>Save</button>
+      {/* Content Area */}
+      <div className="flex-1 p-2 overflow-y-auto lg:ml-[24rem] mt-4 lg:mt-0">
+        <div className="bg-white p-2 rounded-md d">{renderSection()}</div>
       </div>
     </div>
   );
-}
+};
+
+export default EditUserProfile;

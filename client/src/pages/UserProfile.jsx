@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UploadImg from "../assets/images/uploadImg.png";
 import InternAp from "../assets/images/InternAp.png";
 import IdeaSub from "../assets/images/IdeaSub.png";
@@ -7,8 +7,14 @@ import Blog from "../assets/images/Blog.png";
 import college from "../assets/images/college.png";
 
 import { FaShareAlt, FaEye, FaEdit } from "react-icons/fa";
+import EditUserProfile from "./EditUserProfile";
 
 export default function UserProfile() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
   const stats = [
     {
       icon: InternAp,
@@ -52,7 +58,10 @@ export default function UserProfile() {
           </div>
           <div>
             <h1 className="text-lg md:text-2xl font-semibold">Name.....</h1>
-            <p className="text-gray-500 flex items-center text-sm md:text-base"><img src={college} className="w-8 h-10"/><span>Techno Main Salt Lake</span></p>
+            <p className="text-gray-500 flex items-center text-sm md:text-base">
+              <img src={college} className="w-8 h-10" />
+              <span>Techno Main Salt Lake</span>
+            </p>
           </div>
         </div>
         <div className="flex flex-col items-center md:items-end gap-4">
@@ -65,11 +74,34 @@ export default function UserProfile() {
             <div className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition duration-200">
               <FaEye className="text-gray-600 text-xl cursor-pointer" />
             </div>
-            {/* Edit Profile Button */}
-            <button className="bg-blue-500 text-white px-3 py-1 md:px-4 md:py-2 rounded-[20px] shadow flex items-center gap-2 hover:bg-blue-600 transition duration-200">
-              <FaEdit className="text-white" />
-              Edit Profile
-            </button>
+            <div>
+              {/* Edit Profile Button */}
+              <button
+                onClick={handleOpen}
+                className="bg-blue-500 text-white px-3 py-1 md:px-4 md:py-2 rounded-[20px] shadow flex items-center gap-2 hover:bg-blue-600 transition duration-200"
+              >
+                <FaEdit className="text-white" />
+                Edit Profile
+              </button>
+
+              {/* Popup Modal */}
+              {isOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black no-scrollbar bg-opacity-50 z-50">
+                  <div className="bg-white rounded-lg p-4 max-h-[90vh] overflow-y-auto no-scrollbar w-[90%] md:w-[80%]">
+                    {/* Close Button */}
+                    <button
+                      onClick={handleClose}
+                      className="text-red-500 float-right text-xl font-bold"
+                    >
+                      &times;
+                    </button>
+
+                    {/* Edit User Profile Component */}
+                    <EditUserProfile />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           {/* Upload Image Button */}
           <div className="mt-2">
@@ -101,8 +133,17 @@ export default function UserProfile() {
         <aside className="bg-white p-4 rounded-lg md:w-1/4">
           <nav>
             <ul className="space-y-2 md:space-y-4">
-              {["About", "Skills", "Education", "Achievements", "Certifications"].map((item, index) => (
-                <li key={index} className="text-lg md:text-2xl font-semibold text-gray-800">
+              {[
+                "About",
+                "Skills",
+                "Education",
+                "Achievements",
+                "Certifications",
+              ].map((item, index) => (
+                <li
+                  key={index}
+                  className="text-lg md:text-2xl font-semibold text-gray-800"
+                >
                   {item}
                 </li>
               ))}
@@ -121,8 +162,12 @@ export default function UserProfile() {
                   className="w-20 h-20 md:w-24 md:h-24 object-contain"
                 />
                 <div>
-                  <h3 className="text-sm md:text-lg font-semibold text-blue-500">{stat.title}</h3>
-                  <p className="text-gray-700 text-lg md:text-2xl font-bold">{stat.count}</p>
+                  <h3 className="text-sm md:text-lg font-semibold text-blue-500">
+                    {stat.title}
+                  </h3>
+                  <p className="text-gray-700 text-lg md:text-2xl font-bold">
+                    {stat.count}
+                  </p>
                 </div>
               </div>
             ))}
@@ -132,16 +177,51 @@ export default function UserProfile() {
         {/* Main Section */}
         <section className="bg-[#d9d9d9] shadow rounded-2xl p-4 md:p-6 md:w-3/4 flex flex-col gap-4">
           {[
-            { title: "About", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-            { title: "Skills", content: skills.map(skill => <span key={skill} className="px-2 py-1 bg-blue-100 text-blue-600 rounded-full">{skill}</span>) },
-            { title: "Education", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-            { title: "Achievements", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-            { title: "Certifications", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+            {
+              title: "About",
+              content:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            },
+            {
+              title: "Skills",
+              content: skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-2 py-1 bg-blue-100 text-blue-600 rounded-full"
+                >
+                  {skill}
+                </span>
+              )),
+            },
+            {
+              title: "Education",
+              content:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            },
+            {
+              title: "Achievements",
+              content:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            },
+            {
+              title: "Certifications",
+              content:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            },
           ].map((section, index) => (
-            <div key={index} className="bg-[#F6F8FA] p-4 md:p-6 rounded-xl shadow">
-              <h2 className="text-lg md:text-xl font-semibold text-gray-700">{section.title}</h2>
+            <div
+              key={index}
+              className="bg-[#F6F8FA] p-4 md:p-6 rounded-xl shadow"
+            >
+              <h2 className="text-lg md:text-xl font-semibold text-gray-700">
+                {section.title}
+              </h2>
               <p className="mt-2 text-gray-600">
-                {typeof section.content === "string" ? section.content : <div className="flex flex-wrap gap-2">{section.content}</div>}
+                {typeof section.content === "string" ? (
+                  section.content
+                ) : (
+                  <div className="flex flex-wrap gap-2">{section.content}</div>
+                )}
               </p>
             </div>
           ))}
