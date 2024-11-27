@@ -14,12 +14,16 @@ export const submitIdea = createAsyncThunk(
   "users/submitIdea",
   async (data, { rejectWithValue }) => {
     console.log(data);
-    const res = await axios.post("/api/v1/user/submit-idea", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.post(
+      "http://localhost:8000/api/v1/user/submit-idea",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
@@ -35,12 +39,16 @@ export const fetchUserIdeas = createAsyncThunk(
   "users/fetchUserIdeas",
   async (data, { rejectWithValue }) => {
     // console.log(data);
-    const res = await axios.get("/api/v1/user/get-ideas", data, {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.get(
+      "http://localhost:8000/api/v1/user/get-ideas",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
@@ -56,12 +64,16 @@ export const deleteUserIdea = createAsyncThunk(
   "users/deleteUserIdea",
   async (data, { rejectWithValue }) => {
     // console.log(data);
-    const res = await axios.get("/api/v1/user/delete-idea", data, {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.get(
+      "http://localhost:8000/api/v1/user/delete-idea",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
@@ -77,12 +89,15 @@ export const fetchAllIdeas = createAsyncThunk(
   "admin/fetchAllIdeas",
   async (_, { rejectWithValue }) => {
     // console.log(data);
-    const res = await axios.get("/api/v1/admin/get-all-ideas", {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.get(
+      "http://localhost:8000/api/v1/admin/get-all-ideas",
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
@@ -98,12 +113,16 @@ export const sendFeedback = createAsyncThunk(
   "admin/sendFeedback",
   async (data, { rejectWithValue }) => {
     console.log(data);
-    const res = await axios.post("/api/v1/admin/send-idea-feedback", data, {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.post(
+      "http://localhost:8000/api/v1/admin/send-idea-feedback",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);

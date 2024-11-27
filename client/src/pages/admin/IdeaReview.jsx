@@ -52,6 +52,7 @@ export default function IdeaReview() {
                 ideaTitle={idea.title}
                 ideaOwner={idea.submittedBy.fullName}
                 ideaId={idea.uuid}
+                isFeedbackGiven={idea.isFeedbackGiven}
               />
             ))
           ) : (

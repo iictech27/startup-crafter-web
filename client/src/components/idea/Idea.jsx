@@ -7,6 +7,7 @@ export default function Idea({
   ideaDescription,
   ideaOwner,
   ideaId,
+  isFeedbackGiven,
 }) {
   return (
     <>
@@ -42,13 +43,17 @@ export default function Idea({
               Idea.pdf
             </a>
           </div>
-          <Link
-            to={`/admin/idea-feedback?idea=${ideaId}`}
-            className={styles.feedbackBtn}
-          >
-            {" "}
-            Give Feedback{" "}
-          </Link>
+          {isFeedbackGiven ? (
+            <div className={styles.feedbackSentBtn}>&#10004; Feedback sent</div>
+          ) : (
+            <Link
+              to={`/admin/idea-feedback?idea=${ideaId}`}
+              className={styles.feedbackBtn}
+            >
+              {" "}
+              Give Feedback{" "}
+            </Link>
+          )}
         </div>
       </div>
     </>
