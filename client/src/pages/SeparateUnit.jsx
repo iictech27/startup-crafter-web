@@ -1,4 +1,4 @@
-import { PageMarker } from "../components/index";
+import { PageMarker, Pagination } from "../components/index";
 import { NavLink, useParams } from "react-router-dom";
 import styles from "../style.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 //images and vectors
 import frontenddev from "../assets/images/frontenddev.png";
 import spmsvg from "../assets/vectors/spmsvg.png";
+import usePagination from "../hooks/usePagination.js";
 
 export default function SeparateUnit() {
   const { separateUnit } = useParams();
@@ -15,6 +16,10 @@ export default function SeparateUnit() {
     (state) => state.studyMaterial || {}
   );
   // console.log(unitDetail);
+
+  let itemsToShow = 1;
+  const [currentItem, currentPage, setCurrentPage] = usePagination(itemsToShow);
+
   const [unitDetailAvailable, setUnitAvailable] = useState(false);
   const initialModule =
     unitDetail.modules.length > 0 ? unitDetail.modules[0] : null;
@@ -44,7 +49,7 @@ export default function SeparateUnit() {
             <h1 className="mt-5 lg:mt-0 text-3xl md:text-5xl font-semibold">
               {!loading && unitDetail.title}
             </h1>
-            <p className="md:w-1/2 text-base sm:text-lg">
+            <p className="md:w-1/2 text-base sm:text-lg text-center">
               {!loading && unitDetail.description2}
             </p>
             <PageMarker>{!loading && unitDetail.title}</PageMarker>
@@ -67,7 +72,7 @@ export default function SeparateUnit() {
                           isActive
                             ? "gradientBtnColor text-white"
                             : "bg-white text-black border-gray-600"
-                        } font-semibold w-[12rem] px-2 py-1.5 rounded-xl shadow-md border cursor-pointer flex items-center gap-x-2`
+                        } font-semibold w-fit px-2 py-1.5 rounded-xl shadow-md border cursor-pointer flex items-center gap-x-2`
                       }
                     >
                       <i className="fa-solid fa-circle-check text-2xl text-gray-600"></i>
@@ -80,14 +85,51 @@ export default function SeparateUnit() {
               <div className="main_content p-3 md:p-8 h-screen bg-gray-100 flex flex-col items-end">
                 <div className="text-center self-center flex-1">
                   {selectedModule ? (
-                    <div>
-                      <p>{selectedModule.content}</p>{" "}
-                      {/* Displaying the content of the selected module */}
-                    </div>
+                    (() => {
+                      const formatPdfText = (text) => {
+                        // Split by double newlines to identify paragraphs
+                        const paragraphs = text
+                          .split(/\n\s*\n/)
+                          .filter(Boolean);
+
+                        // Create HTML paragraphs
+                        return paragraphs
+                          .map((paragraph) => {
+                            // Replace single newlines with spaces
+                            const cleanedParagraph = paragraph
+                              .replace(/\n/g, " ")
+                              .trim();
+                            return `<p>${cleanedParagraph}</p>`;
+                          })
+                          .join("");
+                      };
+
+                      const formattedText = formatPdfText(
+                        selectedModule.content
+                      );
+
+                      return (
+                        <div>
+                          <div
+                            className="text-2xl"
+                            dangerouslySetInnerHTML={{
+                              __html: formattedText, // Use the formatted text here
+                            }}
+                          />
+                        </div>
+                      );
+                    })()
                   ) : (
                     <p className="text-3xl">No Content found</p> // Default text when no module is selected
                   )}
                 </div>
+                <Pagination
+                  type="button"
+                  totalItems={unitDetail.modules.length}
+                  itemsToShow={itemsToShow}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
               </div>
             </div>
             <img

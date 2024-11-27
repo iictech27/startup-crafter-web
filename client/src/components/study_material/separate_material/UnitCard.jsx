@@ -62,7 +62,7 @@ export default function UnitCard({ unit, num }) {
         ></i>
       </div>
       <div
-        className={`content transition-all ease-in-out duration-300 ${
+        className={`content w-full transition-all ease-in-out duration-300 ${
           isUnitOpen ? "h-auto" : "h-0 hidden"
         } py-4 px-8 font-semibold`}
       >
@@ -74,7 +74,7 @@ export default function UnitCard({ unit, num }) {
           btnColor="gradientBtnColor"
           onHandleClick={scrollToNext}
         />
-        <Link to={`${unit.uuid}`}>
+        <Link to={`${unit.slug}`}>
           <Button title="Explore" btnColor="gradientBtnColor">
             <i className="ml-2 fa-solid fa-arrow-right"></i>
           </Button>

@@ -23,7 +23,7 @@ export default function Stage({ stageNo, value, onStageChange }) {
         label="Description"
         name="description"
         value={value?.description || ""}
-        onChange={handleInputChange}
+        // onChange={(e) => onStageChange(e.target.name, e.target.value)}
         className="col-span-2"
       />
       <Input

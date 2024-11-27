@@ -41,7 +41,7 @@ export default function SeparateTopic() {
               <h1 className="mt-5 lg:mt-0 text-3xl md:text-5xl font-semibold">
                 {!loading && subTopicDetail.title}
               </h1>
-              <p className="text-base sm:text-lg text-left lg:w-3/4">
+              <p className="text-base sm:text-lg text-center lg:w-3/4">
                 {!loading && subTopicDetail.description}
               </p>
               <Button title="Start Course" btnColor="gradientBtnColor" />

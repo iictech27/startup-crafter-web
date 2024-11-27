@@ -52,7 +52,7 @@ export default function RecommendedTopics() {
                       {topic?.description.substring(0, 200)}...
                     </p>
                     <Link
-                      to={topic?.uuid}
+                      to={topic?.slug}
                       className="text-pink-600 text-xl flex items-center gap-x-2"
                     >
                       <span className="underline">Start this track</span>{" "}
@@ -133,7 +133,7 @@ export function Topics() {
                 </h3>
                 <p className="text-blue-900">{topic?.description}...</p>
                 <div className="text-pink-600 text-xl flex items-center gap-x-2">
-                  <Link to={topic?.uuid}>
+                  <Link to={topic?.slug}>
                     <span className="underline">Start this track</span>
                   </Link>{" "}
                   <i className="fa-solid fa-circle-arrow-right"></i>
