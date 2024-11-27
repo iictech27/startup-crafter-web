@@ -23,9 +23,11 @@ const {
   sendFeedback,
 } = require("../controllers/admin/idea.controller.js");
 const {
-  addEvent,
+  addUpcomingEvent,
+  addPastEvent,
   deleteEvent,
-  editEvent,
+  editPastEvent,
+  editUpcomingEvent,
 } = require("../controllers/admin/event.controller.js");
 
 //authentication
@@ -90,13 +92,21 @@ router
   .delete(authHandler({ userType: "admin" }), deleteModule);
 
 //events
-router.route("/admin/add-event").post(
+router
+  .route("/admin/add-upcoming-event")
+  .post(
+    authHandler({ userType: "admin" }),
+    upload.single("image"),
+    addUpcomingEvent
+  );
+router.route("/admin/add-past-event").post(
   authHandler({ userType: "admin" }),
   upload.fields([
     { name: "image", maxCount: 1 },
-    { name: "winnerPicture", maxCount: 1 },
+    { name: "winnerPicture", maxCount: 3 },
+    { name: "runnerupPicture", maxCount: 3 },
   ]),
-  addEvent
+  addPastEvent
 );
 router
   .route("/admin/delete-event")
@@ -107,7 +117,15 @@ router.route("/admin/edit-event").post(
     { name: "image", maxCount: 1 },
     { name: "winnerPicture", maxCount: 1 },
   ]),
-  editEvent
+  editPastEvent
+);
+router.route("/admin/edit-event").post(
+  authHandler({ userType: "admin" }),
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "winnerPicture", maxCount: 1 },
+  ]),
+  editUpcomingEvent
 );
 
 module.exports = router;
