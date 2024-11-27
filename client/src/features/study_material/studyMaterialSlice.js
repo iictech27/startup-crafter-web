@@ -111,14 +111,14 @@ export const studyMaterialSlice = createSlice({
     //fetch subtopic detail page
     fetchSubTopicDetail: (state, action) => {
       state.subTopicDetail = state.subTopics.find(
-        (st) => st.uuid === action.payload
+        (st) => st.slug === action.payload
       );
     },
 
     //fetch unit details page
     fetchUnitDetail: (state, action) => {
       state.unitDetail = state.subTopicDetail.units.find(
-        (unit) => unit.uuid === action.payload
+        (unit) => unit.slug === action.payload
       );
     },
   },
@@ -131,6 +131,8 @@ export const studyMaterialSlice = createSlice({
     builder.addCase(fetchAllTopics.fulfilled, (state, action) => {
       state.loading = false;
       state.topics = action.payload;
+      state.subTopicDetail = null;
+      state.unitDetail = null;
     });
     builder.addCase(fetchAllTopics.rejected, (state, action) => {
       state.loading = false;
@@ -147,6 +149,8 @@ export const studyMaterialSlice = createSlice({
       state.subTopics = action.payload.map((ap) => {
         return { topic: ap.topic, ...ap._doc };
       });
+      state.subTopicDetail = null;
+      state.unitDetail = null;
     });
     builder.addCase(fetchSubTopics.rejected, (state, action) => {
       state.loading = false;
