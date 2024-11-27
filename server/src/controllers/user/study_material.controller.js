@@ -21,13 +21,13 @@ const getAllTopics = asyncHandler(async (req, res) => {
 });
 
 const getSubTopics = asyncHandler(async (req, res) => {
-  const topicId = req.params.topicId;
+  const slug = req.params.slug;
 
-  if (!topicId) {
-    throw new ApiError(400, "Topic Id required !");
+  if (!slug) {
+    throw new ApiError(400, "Topic Id or Slug required !");
   }
 
-  const topic = await Topic.findOne({ uuid: topicId });
+  const topic = await Topic.findOne({ slug: slug });
 
   if (!topic) {
     throw new NotFoundError("Topic not found !");
@@ -139,6 +139,4 @@ const getSubTopics = asyncHandler(async (req, res) => {
 module.exports = {
   getAllTopics,
   getSubTopics,
-  getUnits,
-  getModules,
 };

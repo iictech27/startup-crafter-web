@@ -8,9 +8,11 @@ const asyncHandler = require("../../utils/asyncHandler");
 const uploadFileOnCloudinary = require("../../utils/cloudinary");
 const { ApiError, NotFoundError } = require("../../utils/customErrorHandler");
 // const pdfTextParser = require("../../utils/pdfParser");
+const slugify = require("slugify");
 const pdf = require("pdf-parse");
 const ResponseHandler = require("../../utils/responseHandler");
 
+// create study material
 const createTopic = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
   let image = req.file?.path;
@@ -33,6 +35,7 @@ const createTopic = asyncHandler(async (req, res) => {
   }
 
   const newTopic = await Topic.create({
+    slug: slugify(title, { lower: true }),
     title,
     description,
     cover_image,
@@ -79,6 +82,7 @@ const createSubTopic = asyncHandler(async (req, res) => {
     );
   }
   const newSubTopic = await SubTopic.create({
+    slug: slugify(title, { lower: true }),
     title,
     description,
     cover_image,
@@ -128,6 +132,7 @@ const createUnit = asyncHandler(async (req, res) => {
   }
 
   const newUnit = await Unit.create({
+    slug: slugify(title, { lower: true }),
     title,
     description1,
     description2,
@@ -180,6 +185,7 @@ const createModule = asyncHandler(async (req, res) => {
   console.log(content);
 
   const newModule = await Module.create({
+    slug: slugify(title, { lower: true }),
     title,
     content,
   });
@@ -204,9 +210,112 @@ const createModule = asyncHandler(async (req, res) => {
     );
 });
 
+// edit study material
+const editTopic = asyncHandler(async (req, res) => {});
+
+// delete study material
+const deleteTopic = asyncHandler(async (req, res) => {
+  const { topicId } = req.body;
+
+  const topic = await Topic.findOne({ uuid: topicId });
+
+  if (!topic) {
+    throw new NotFoundError("Topic Not Found !");
+  }
+
+  await Topic.findByIdAndDelete(topic._id);
+
+  return res
+    .status(200)
+    .json(new ResponseHandler(201, "Topic deleted successfully!", {}));
+});
+
+const deleteSubTopic = asyncHandler(async (req, res) => {
+  const { subTopicId } = req.body;
+
+  const subtopic = await SubTopic.findOne({ uuid: subTopicId });
+
+  if (!subtopic) {
+    throw new NotFoundError("Subtopic Not Found !");
+  }
+
+  //get associated topic ids
+  const topicIds = await Topic.find({ subtopics: subtopic._id }).select("_id");
+
+  //remove Subtopic from Topic
+  await Topic.updateMany(
+    { _id: { $in: topicIds } },
+    { $pull: { subtopics: subtopic._id } }
+  );
+
+  //delete subtopic
+  await SubTopic.findByIdAndDelete(subtopic._id);
+
+  return res
+    .status(200)
+    .json(new ResponseHandler(201, "Subtopic deleted successfully!", {}));
+});
+
+const deleteUnit = asyncHandler(async (req, res) => {
+  const { unitId } = req.body;
+
+  const unit = await Unit.findOne({ uuid: unitId });
+
+  if (!unit) {
+    throw new NotFoundError("Unit Not Found !");
+  }
+
+  //get associated subtopic ids
+  const subTopicIds = await SubTopic.find({ units: unit._id }).select("_id");
+
+  //remove Unit from SubTopic
+  await SubTopic.updateMany(
+    { _id: { $in: subTopicIds } },
+    { $pull: { units: unit._id } }
+  );
+
+  //delete unit
+  await Unit.findByIdAndDelete(unit._id);
+
+  return res
+    .status(200)
+    .json(new ResponseHandler(201, "Unit deleted successfully!", {}));
+});
+
+const deleteModule = asyncHandler(async (req, res) => {
+  const { moduleId } = req.body;
+
+  const module = await Module.findOne({ uuid: moduleId });
+
+  if (!module) {
+    throw new NotFoundError("Module Not Found !");
+  }
+
+  //get associated unit ids
+  const unitIds = await Unit.find({ modules: module._id }).select("_id");
+
+  //remove module from unit
+  await Unit.updateMany(
+    { _id: { $in: unitIds } },
+    { $pull: { modules: module._id } }
+  );
+
+  //delete module
+  await Module.findByIdAndDelete(module._id);
+
+  return res
+    .status(200)
+    .json(new ResponseHandler(201, "Module deleted successfully!", {}));
+});
+
 module.exports = {
   createTopic,
   createSubTopic,
   createUnit,
   createModule,
+  deleteTopic,
+  deleteSubTopic,
+  deleteUnit,
+  deleteModule,
+  editTopic,
 };
