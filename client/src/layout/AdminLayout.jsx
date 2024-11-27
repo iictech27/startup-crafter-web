@@ -29,9 +29,12 @@ export default function AdminLayout() {
 
   const logout = async () => {
     try {
-      const res = await axios.post("/api/v1/admin-logout", {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        "http://localhost:8000/api/v1/admin-logout",
+        {
+          withCredentials: true,
+        }
+      );
       console.log(res);
 
       dispatch(clearIdeas());
