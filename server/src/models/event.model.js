@@ -35,6 +35,9 @@ const eventSchema = new Schema(
       type: String,
       required: [true, "Event location is required"],
     },
+    registrationLink: {
+      type: String,
+    },
     stages: [
       {
         title: {
