@@ -21,8 +21,12 @@ async function uploadFileOnCloudinary(filePath) {
     });
 
   if (uploadResult) {
+    console.log(filePath);
     console.log(uploadResult);
     if (filePath !== "public\\uploads\\dummy_blog.jpg") {
+      fs.unlinkSync(filePath);
+    }
+    if (filePath !== "public\\uploads\\default_event_image.jpg") {
       fs.unlinkSync(filePath);
     }
     return uploadResult.url;
