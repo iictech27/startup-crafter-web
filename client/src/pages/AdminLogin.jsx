@@ -132,7 +132,7 @@ export function ResetAdminPassword({ onClose }) {
 
     const res = axios
       .post(
-        "/api/v1/admin/reset-admin-password",
+        "https://startup-crafter-web-server.onrender.com/api/v1/admin/reset-admin-password",
         {
           oldPassword: formValues.oldPassword,
           newPassword: formValues.newPassword,

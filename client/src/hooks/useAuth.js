@@ -74,7 +74,11 @@ export default function useAuth({ authType, initialFormValues }) {
     }
 
     const res = axios
-      .post(`/api/v1/${authType}`, formValues, { withCredentials: true })
+      .post(
+        `https://startup-crafter-web-server.onrender.com/api/v1/${authType}`,
+        formValues,
+        { withCredentials: true }
+      )
       .then((res) => {
         console.log(res);
         //user dispatch to global state and redirecting based on auth type

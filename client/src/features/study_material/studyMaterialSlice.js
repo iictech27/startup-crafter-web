@@ -18,7 +18,7 @@ export const createTopic = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "/api/v1/admin/study-material/create-topic",
+      "https://startup-crafter-web-server.onrender.com/api/v1/admin/study-material/create-topic",
       data,
       {
         withCredentials: true,
@@ -43,7 +43,7 @@ export const createSubTopic = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "/api/v1/admin/study-material/create-subtopic",
+      "https://startup-crafter-web-server.onrender.com/api/v1/admin/study-material/create-subtopic",
       data,
       {
         withCredentials: true,
@@ -67,12 +67,15 @@ export const fetchAllTopics = createAsyncThunk(
   "studyMaterials/fetchAllTopics",
   async (_, { rejectWithValue }) => {
     // console.log(data);
-    const res = await axios.get("/api/v1/user/get-all-topics", {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.get(
+      "https://startup-crafter-web-server.onrender.com/api/v1/user/get-all-topics",
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
@@ -88,12 +91,15 @@ export const fetchSubTopics = createAsyncThunk(
   "studyMaterials/fetchSubTopics",
   async (data, { rejectWithValue }) => {
     console.log(data);
-    const res = await axios.get(`/api/v1/user/get-subtopics/${data}`, {
-      withCredentials: true,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const res = await axios.get(
+      `https://startup-crafter-web-server.onrender.com/api/v1/user/get-subtopics/${data}`,
+      {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
 
     try {
       console.log(res.data);
