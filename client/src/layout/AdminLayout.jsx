@@ -1,6 +1,6 @@
 import { admin_navlinks } from "../constants/index.js";
 import { NavLink, Outlet, Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "/assets/logo.png";
 import Button from "../components/Button.jsx";
 import Hamburger from "hamburger-react";
 import { useState, useEffect } from "react";

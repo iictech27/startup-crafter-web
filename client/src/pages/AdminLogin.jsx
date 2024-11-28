@@ -1,5 +1,5 @@
 import { Input, InputButton } from "../components";
-import logo from "../assets/logo.png";
+import logo from "/assets/logo.png";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { GrClose } from "react-icons/gr";
