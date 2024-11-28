@@ -14,7 +14,7 @@ const app = express();
 //cors
 app.use(
   cors({
-    origin: "*",
+    origin: "https://startup-crafter-web.onrender.com",
     credentials: true,
   })
 );
