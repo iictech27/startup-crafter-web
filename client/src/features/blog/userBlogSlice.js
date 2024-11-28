@@ -16,7 +16,7 @@ export const createBlog = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "http://localhost:8000/api/v1/user/create-blog",
+      "https://startup-crafter-web-server.onrender.com/api/v1/user/create-blog",
       data,
       {
         withCredentials: true,
@@ -41,7 +41,7 @@ export const fetchAllBlogs = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     // console.log(data);
     const res = await axios.get(
-      "http://localhost:8000/api/v1/user/get-all-blogs",
+      "https://startup-crafter-web-server.onrender.com/api/v1/user/get-all-blogs",
       {
         withCredentials: true,
         headers: {

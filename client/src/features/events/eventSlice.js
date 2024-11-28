@@ -14,7 +14,7 @@ export const addUpcomingEvent = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "http://localhost:8000/api/v1/admin/add-upcoming-event",
+      "https://startup-crafter-web-server.onrender.com/api/v1/admin/add-upcoming-event",
       data,
       {
         withCredentials: true,
@@ -39,7 +39,7 @@ export const addPastEvent = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "http://localhost:8000/api/v1/admin/add-past-event",
+      "https://startup-crafter-web-server.onrender.com/api/v1/admin/add-past-event",
       data,
       {
         withCredentials: true,
@@ -66,7 +66,7 @@ export const editPastEvent = createAsyncThunk(
 
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/v1/admin/edit-past-event/${eventId}`,
+        `https://startup-crafter-web-server.onrender.com/api/v1/admin/edit-past-event/${eventId}`,
         data,
         {
           withCredentials: true,
@@ -90,7 +90,7 @@ export const editUpcomingEvent = createAsyncThunk(
 
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/v1/admin/edit-upcoming-event/${eventId}`,
+        `https://startup-crafter-web-server.onrender.com/api/v1/admin/edit-upcoming-event/${eventId}`,
         data,
         {
           withCredentials: true,
@@ -112,7 +112,7 @@ export const deleteEvent = createAsyncThunk(
   async (eventId, { rejectWithValue }) => {
     try {
       const res = await axios.delete(
-        `http://localhost:8000/api/v1/admin/delete-event/${eventId}`,
+        `https://startup-crafter-web-server.onrender.com/api/v1/admin/delete-event/${eventId}`,
         {
           withCredentials: true,
         }

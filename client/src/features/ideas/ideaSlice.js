@@ -15,7 +15,7 @@ export const submitIdea = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "http://localhost:8000/api/v1/user/submit-idea",
+      "https://startup-crafter-web-server.onrender.com/api/v1/user/submit-idea",
       data,
       {
         withCredentials: true,
@@ -40,7 +40,7 @@ export const fetchUserIdeas = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     // console.log(data);
     const res = await axios.get(
-      "http://localhost:8000/api/v1/user/get-ideas",
+      "https://startup-crafter-web-server.onrender.com/api/v1/user/get-ideas",
       data,
       {
         withCredentials: true,
@@ -65,7 +65,7 @@ export const deleteUserIdea = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     // console.log(data);
     const res = await axios.get(
-      "http://localhost:8000/api/v1/user/delete-idea",
+      "https://startup-crafter-web-server.onrender.com/api/v1/user/delete-idea",
       data,
       {
         withCredentials: true,
@@ -90,7 +90,7 @@ export const fetchAllIdeas = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     // console.log(data);
     const res = await axios.get(
-      "http://localhost:8000/api/v1/admin/get-all-ideas",
+      "https://startup-crafter-web-server.onrender.com/api/v1/admin/get-all-ideas",
       {
         withCredentials: true,
         headers: {
@@ -114,7 +114,7 @@ export const sendFeedback = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "http://localhost:8000/api/v1/admin/send-idea-feedback",
+      "https://startup-crafter-web-server.onrender.com/api/v1/admin/send-idea-feedback",
       data,
       {
         withCredentials: true,
