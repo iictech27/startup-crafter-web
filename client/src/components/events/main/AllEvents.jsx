@@ -2,14 +2,14 @@ import { NavLink, Link } from "react-router-dom";
 import EventCard from "./EventCard";
 import PastEventCard from "./PastEventCard";
 import useFetchData from "../../../hooks/useFetchData";
-import eventImg from "../../../assets/images/eventHero.png";
+import eventImg from "/assets/images/eventHero.png";
 
 export default function AllEvents() {
   const [upcomingEvents, isLoading] = useFetchData(
-    "/src/data/upcoming_events.json",
+    "/src/data/upcoming_events.json"
   );
   const [pastEvents, isPastEventsLoading] = useFetchData(
-    "/src/data/past_events.json",
+    "/src/data/past_events.json"
   );
 
   return (

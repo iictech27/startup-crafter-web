@@ -1,12 +1,12 @@
 // import "./Login.css";
-import login_image from "../assets/images/login_image.jpg";
-import loginsvg from "../assets/vectors/loginsvg.png";
+import login_image from "/assets/images/login_image.jpg";
+import loginsvg from "/assets/vectors/loginsvg.png";
 import { Input, InputButton } from "../components/index";
 import { Link, useNavigate } from "react-router-dom";
-import google_icon from "../assets/icons/google_icon.png";
-import login_texture1 from "../assets/vectors/login_texture1.png";
-import login_texture2 from "../assets/vectors/login_texture2.png";
-import logo from "../assets/logo.png";
+import google_icon from "/assets/icons/google_icon.png";
+import login_texture1 from "/assets/vectors/login_texture1.png";
+import login_texture2 from "/assets/vectors/login_texture2.png";
+import logo from "/assets/logo.png";
 import styles from "../style";
 import { useState } from "react";
 import axios from "axios";

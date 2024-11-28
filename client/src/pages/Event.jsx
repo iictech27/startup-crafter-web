@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import smFooterVector from "../assets/vectors/smFooterVector.png";
+import smFooterVector from "/assets/vectors/smFooterVector.png";
 
 const Event = () => {
   return (

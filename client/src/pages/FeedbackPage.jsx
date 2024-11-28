@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "../style";
-import feedback_image from "../assets/images/feedback.jpg";
+import feedback_image from "/assets/images/feedback.jpg";
 import { Button } from "../components";
 import HeadingBg from "../components/HeadingBg";
 import { HeadingBg2 } from "../components/HeadingBg";
-import longVector from "../assets/vectors/longVector.png";
+import longVector from "/assets/vectors/longVector.png";
 
 const Feedback = () => {
   const [rating, setRating] = useState(0);
@@ -34,7 +34,7 @@ const Feedback = () => {
       if (reviews.length === 0) return 0;
       const totalRating = reviews.reduce(
         (acc, review) => acc + review.rating,
-        0,
+        0
       );
       return (totalRating / reviews.length).toFixed(1);
     };
@@ -122,7 +122,9 @@ const Feedback = () => {
               <span
                 id="cont"
                 key={star}
-                className={`stars text-4xl md:text-6xl drop-shadow-md cursor-pointer ${rating >= star ? "text-yellow-400" : "text-gray-300"}`}
+                className={`stars text-4xl md:text-6xl drop-shadow-md cursor-pointer ${
+                  rating >= star ? "text-yellow-400" : "text-gray-300"
+                }`}
                 onClick={() => handleRating(star)}
               >
                 &#9733;
@@ -199,7 +201,11 @@ const Feedback = () => {
                     {[1, 2, 3, 4, 5].map((star) => (
                       <span
                         key={star}
-                        className={`star text-xl md:text-2xl ${review.rating >= star ? "text-yellow-400" : "text-gray-300"}`}
+                        className={`star text-xl md:text-2xl ${
+                          review.rating >= star
+                            ? "text-yellow-400"
+                            : "text-gray-300"
+                        }`}
                       >
                         &#9733;
                       </span>

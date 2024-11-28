@@ -10,7 +10,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api/v1": "https://startup-crafter-web-server.onrender.com",
+      // "/api/v1": "https://startup-crafter-web-server.onrender.com",
+      "/api/v1": "http://localhost:8000",
     },
   },
 });

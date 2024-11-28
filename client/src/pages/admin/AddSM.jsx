@@ -6,8 +6,8 @@ import Input, {
   TextArea,
 } from "../../components/form/Input";
 import Button from "../../components/Button";
-import curveLineVector from "../../assets/vectors/curveLineVector.png";
-import admin_sm from "../../assets/images/admin_sm.png";
+import curveLineVector from "/assets/vectors/curveLineVector.png";
+import admin_sm from "/assets/images/admin_sm.png";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddSM = () => {

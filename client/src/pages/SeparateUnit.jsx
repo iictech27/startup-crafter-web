@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUnitDetail } from "../features/study_material/studyMaterialSlice.js";
 import { useEffect, useState } from "react";
 //images and vectors
-import frontenddev from "../assets/images/frontenddev.png";
-import spmsvg from "../assets/vectors/spmsvg.png";
+import frontenddev from "/assets/images/frontenddev.png";
+import spmsvg from "/assets/vectors/spmsvg.png";
 import usePagination from "../hooks/usePagination.js";
 
 export default function SeparateUnit() {

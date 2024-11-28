@@ -1,5 +1,4 @@
 import styles from "../../../style";
-import ellipse from "../../../assets/images/ellipse.png";
 import { events } from "../../../constants/index";
 import Button from "../../Button";
 import HeadingBg from "../../HeadingBg";

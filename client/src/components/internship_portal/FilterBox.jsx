@@ -40,22 +40,6 @@ export default function FilterBox() {
     setMoreFilterOpen(!isMoreFilterOpen);
   };
 
-  // const [isFilterBoxFixed, setFilterBoxFixed] = useState(false);
-  // const filterBoxRef = useRef(null);
-
-  // const fixFilterBox = () => {
-  //   let viewport = window.innerHeight;
-  //   let contentHeight = filterBoxRef.current.getBoudingClientRect().height;
-  //   if (window.scrollY >= contentHeight - viewport) {
-  //     setFilterBoxFixed(true);
-  //   } else {
-  //     setFilterBoxFixed(false);
-  //   }
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("scroll", fixFilterBox);
-  // }, []);
-
   return (
     <div
       className={`form_container w-full h-auto bg-white px-4 py-2 lg:p-8 border rounded-xl font-inter shadow-md z-10`}

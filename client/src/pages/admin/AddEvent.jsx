@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import curveLineVector from "../../assets/vectors/curveLineVector.png";
-import addEvents from "../../assets/images/addEvents.png";
+import curveLineVector from "/assets/vectors/curveLineVector.png";
+import addEvents from "/assets/images/addEvents.png";
 import Input, { FileUpload, TextArea } from "../../components/form/Input";
 import Button from "../../components/Button";
 import { Stage } from "../../components";

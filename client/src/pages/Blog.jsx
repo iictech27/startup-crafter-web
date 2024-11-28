@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import smFooterVector from "../assets/vectors/smFooterVector.png";
+import smFooterVector from "/assets/vectors/smFooterVector.png";
 
 export default function Blog() {
   return (

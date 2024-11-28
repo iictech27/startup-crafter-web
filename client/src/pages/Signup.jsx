@@ -1,10 +1,10 @@
-import signup_image from "../assets/images/signup_image.png";
-import loginsvg from "../assets/vectors/loginsvg.png";
-import logo from "../assets/logo.png";
+import signup_image from "/assets/images/signup_image.png";
+import loginsvg from "/assets/vectors/loginsvg.png";
+import logo from "/assets/logo.png";
 import { Input, InputButton } from "../components/index";
 import { Link, useNavigate } from "react-router-dom";
-import google_icon from "../assets/icons/google_icon.png";
-import github_icon from "../assets/icons/github_icon.png";
+import google_icon from "/assets/icons/google_icon.png";
+import github_icon from "/assets/icons/github_icon.png";
 import styles from "../style";
 import useAuth from "../hooks/useAuth";
 

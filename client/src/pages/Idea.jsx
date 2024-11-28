@@ -1,5 +1,5 @@
-import curveLineVector from "../assets/vectors/curveLineVector.png";
-import idea_submit from "../assets/images/idea_submit-cropped.svg";
+import curveLineVector from "/assets/vectors/curveLineVector.png";
+import idea_submit from "/assets/images/idea_submit-cropped.svg";
 import Input, { FileUpload, TextArea } from "../components/form/Input";
 import { Button } from "../components";
 import { useState } from "react";

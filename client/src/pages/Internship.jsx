@@ -1,6 +1,5 @@
 import { InternshipCard, FilterBox } from "../components/index";
 import styles from "../style";
-import footerSVG from "../assets/vectors/footerSVG.png";
 
 export default function Internship() {
   return (

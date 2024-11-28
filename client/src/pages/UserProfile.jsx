@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import UploadImg from "../assets/images/uploadImg.png";
-import InternAp from "../assets/images/InternAp.png";
-import IdeaSub from "../assets/images/IdeaSub.png";
-import Feedback from "../assets/images/Feedback.png";
-import Blog from "../assets/images/Blog.png";
-import college from "../assets/images/college.png";
+import UploadImg from "/assets/images/uploadImg.png";
+import InternAp from "/assets/images/InternAp.png";
+import IdeaSub from "/assets/images/IdeaSub.png";
+import Feedback from "/assets/images/Feedback.png";
+import Blog from "/assets/images/Blog.png";
+import college from "/assets/images/college.png";
 
 import { FaShareAlt, FaEye, FaEdit } from "react-icons/fa";
 import EditUserProfile from "./EditUserProfile";

@@ -1,6 +1,6 @@
 import { Blog, Help, Hero, Events } from "../components";
 import About from "../components/landing_page/about/About";
-import footerSVG from "../assets/vectors/footerSVG.png";
+import footerSVG from "/assets/vectors/footerSVG.png";
 
 export default function Home() {
   return (

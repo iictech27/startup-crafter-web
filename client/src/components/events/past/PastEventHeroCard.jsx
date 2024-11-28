@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../../style";
-import eventImg from "../../../assets/images/events1.png";
+import eventImg from "/assets/images/events1.png";
 
 function PastEventHeroCard() {
   return (

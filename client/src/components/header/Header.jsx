@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "/assets/logo.png";
 import { navlinks } from "../../constants/index.js";
 import { NavLink, Link } from "react-router-dom";
 import Button from "../Button.jsx";

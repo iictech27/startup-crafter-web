@@ -1,9 +1,9 @@
 import styles from "../style";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Button, InputWithButton2, HeroCard } from "../components/index";
-import image_sm from "../assets/images/image_sm.png";
-import smFooterVector from "../assets/vectors/smFooterVector.png";
-import smCircleVector from "../assets/vectors/smCircleVector.png";
+import image_sm from "/assets/images/image_sm.png";
+import smFooterVector from "/assets/vectors/smFooterVector.png";
+import smCircleVector from "/assets/vectors/smCircleVector.png";
 
 export default function StudyMaterial() {
   return (

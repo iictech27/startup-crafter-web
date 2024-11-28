@@ -2,10 +2,10 @@ import { Button, PageMarker, UnitCard, ProgressBar } from "../components/index";
 import { useParams } from "react-router-dom";
 import styles from "../style.js";
 //images and vectors
-import webdev from "../assets/images/webdev.png";
-import spmsvg from "../assets/vectors/spmsvg.png";
-import prereq_vector from "../assets/images/prereq_vector.png";
-import smFooterVector from "../assets/vectors/smFooterVector.png";
+import webdev from "/assets/images/webdev.png";
+import spmsvg from "/assets/vectors/spmsvg.png";
+import prereq_vector from "/assets/images/prereq_vector.png";
+import smFooterVector from "/assets/vectors/smFooterVector.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchSubTopicDetail } from "../features/study_material/studyMaterialSlice.js";

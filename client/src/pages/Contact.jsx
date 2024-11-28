@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "../style";
-import { Button, Input,InputButton } from "../components/index";
+import { Button, Input, InputButton } from "../components/index";
 //images and vectors
-import amico from "../assets/images/amico.png";
+import amico from "/assets/images/amico.png";
 import HeadingBg from "../components/HeadingBg";
-import form_texture1 from "../assets/vectors/login_texture1.png";
-import form_texture2 from "../assets/vectors/login_texture2.png";
+import form_texture1 from "/assets/vectors/login_texture1.png";
+import form_texture2 from "/assets/vectors/login_texture2.png";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({

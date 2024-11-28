@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RWebShare } from "react-web-share";
-import smFooterVector from "../../assets/vectors/smFooterVector.png";
-import blogImage from "../../assets/images/blogImage.png";
+import smFooterVector from "/assets/vectors/smFooterVector.png";
+import blogImage from "/assets/images/blogImage.png";
 import BlogComments from "./BlogComments";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
