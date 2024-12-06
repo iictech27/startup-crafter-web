@@ -239,19 +239,19 @@ const blogs = [
 
 const homeAbout_features = [
   {
-    iconLink: "/public/assets/icons/rocket_icon.svg",
+    iconLink: "/assets/icons/rocket_icon.svg",
     title: "Project management",
     description:
       "Efficiently manage your projects with our expert guidance. From planning to execution, we help you stay on track, meet deadlines, and achieve your startup goals.",
   },
   {
-    iconLink: "/public/assets/icons/planning_icon.svg",
+    iconLink: "/assets/icons/planning_icon.svg",
     title: "Planning",
     description:
       "Planning is key to startup success. We guide you through strategic development, market analysis, and actionable steps to ensure your idea is well-prepared for execution and growth.",
   },
   {
-    iconLink: "/public/assets/icons/idea_icon.svg",
+    iconLink: "/assets/icons/idea_icon.svg",
     title: "Implementation",
     description:
       "Implement your startup vision with our comprehensive support. From idea validation to mentorship and funding, we provide the tools and connections needed for successful execution.",
