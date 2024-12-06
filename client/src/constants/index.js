@@ -133,7 +133,7 @@ const footerLinks = [
 
 const sliderinfo = [
   {
-    imgLink: "src/assets/images/image_hero.jpg",
+    imgLink: "/assets/images/image_hero.jpg",
     element: {
       heading: "Empower your startup voyage.",
       highlight: "startup",
@@ -145,7 +145,7 @@ const sliderinfo = [
   },
   {
     bg: true,
-    imgLink: "src/assets/images/image_hero2.jpg",
+    imgLink: "/assets/images/image_hero2.jpg",
     element: {
       heading: "Let's solve some real world problems",
       highlight: "solve",
@@ -156,7 +156,7 @@ const sliderinfo = [
   },
   {
     center: true,
-    imgLink: "src/assets/images/image_hero3.png",
+    imgLink: "/assets/images/image_hero3.png",
     element: {
       heading: "B-Plan",
       highlight: "Plan",
@@ -174,39 +174,39 @@ const helps = [
     title: "submit your idea",
     description:
       "Submit your innovative startup idea and get a chance to bring it to life with expert guidance and resources. Let's turn your vision into reality!",
-    image: "src/assets/images/help_image1.jpg",
-    svg: "src/assets/vectors/artboard2.png",
+    image: "/public/assets/images/help_image1.jpg",
+    svg: "/public/assets/vectors/artboard2.png",
   },
   {
     id: 2,
     title: "does your idea have potential ?",
     description:
       "Wondering if your idea has potential? Share it with us for expert evaluation and feedback, and discover how far your concept can go",
-    image: "src/assets/images/help_image2.jpg",
-    svg: "src/assets/vectors/artboard1.svg",
+    image: "/public/assets/images/help_image2.jpg",
+    svg: "/public/assets/vectors/artboard1.svg",
   },
   {
     id: 3,
     title: "feedback for your help",
     description:
       "Your feedback matters! Share your thoughts with us so we can improve and offer even better support for your entrepreneurial journey.",
-    image: "src/assets/images/help_image3.jpg",
-    svg: "src/assets/vectors/artboard2.png",
+    image: "/public/assets/images/help_image3.jpg",
+    svg: "/public/assets/vectors/artboard2.png",
   },
   {
     id: 4,
     title: "provide help to find invester",
     description:
       "We connect you with potential investors to help fund and grow your startup. Let us support you in turning your idea into a successful venture.",
-    image: "src/assets/images/help_image4.jpg",
-    svg: "src/assets/vectors/artboard1.svg",
+    image: "/public/assets/images/help_image4.jpg",
+    svg: "/assets/vectors/artboard1.svg",
   },
   {
     id: 5,
     title: "help to find inter and internship",
     description:
       "We assist in finding internships and industry connections to help you gain experience and build a strong network for your startup journey.",
-    image: "src/assets/images/help_image5.jpg",
+    image: "/public/assets/images/help_image5.jpg",
   },
 ];
 
@@ -217,7 +217,7 @@ const blogs = [
       "How are AgriTech Startups Revolutionising Farming Practices in India",
     date: "29 Feb, 2024 Thursday",
     author: "Dr. Anu Kadyan",
-    imgLink: "src/assets/images/blog1.png",
+    imgLink: "/public/assets/images/blog1.png",
   },
   {
     id: 2,
@@ -225,7 +225,7 @@ const blogs = [
       "How are AgriTech Startups Revolutionising Farming Practices in India",
     date: "29 Feb, 2024 Thursday",
     author: "Dr. Anu Kadyan",
-    imgLink: "src/assets/images/blog2.png",
+    imgLink: "/public/assets/images/blog2.png",
   },
   {
     id: 3,
@@ -233,25 +233,25 @@ const blogs = [
       "How are AgriTech Startups Revolutionising Farming Practices in India",
     date: "29 Feb, 2024 Thursday",
     author: "Dr. Anu Kadyan",
-    imgLink: "src/assets/images/blog3.png",
+    imgLink: "/public/assets/images/blog3.png",
   },
 ];
 
 const homeAbout_features = [
   {
-    iconLink: "src/assets/icons/rocket_icon.svg",
+    iconLink: "/public/assets/icons/rocket_icon.svg",
     title: "Project management",
     description:
       "Efficiently manage your projects with our expert guidance. From planning to execution, we help you stay on track, meet deadlines, and achieve your startup goals.",
   },
   {
-    iconLink: "src/assets/icons/planning_icon.svg",
+    iconLink: "/public/assets/icons/planning_icon.svg",
     title: "Planning",
     description:
       "Planning is key to startup success. We guide you through strategic development, market analysis, and actionable steps to ensure your idea is well-prepared for execution and growth.",
   },
   {
-    iconLink: "src/assets/icons/idea_icon.svg",
+    iconLink: "/public/assets/icons/idea_icon.svg",
     title: "Implementation",
     description:
       "Implement your startup vision with our comprehensive support. From idea validation to mentorship and funding, we provide the tools and connections needed for successful execution.",
@@ -261,11 +261,11 @@ const homeAbout_features = [
 const events = [
   {
     name: "hack ur way",
-    imgLink: "src/assets/images/event1.png",
+    imgLink: "/assets/images/event1.png",
   },
   {
     name: "b-plan",
-    imgLink: "src/assets/images/event1.png",
+    imgLink: "/assets/images/event1.png",
   },
 ];
 
