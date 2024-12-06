@@ -174,31 +174,31 @@ const helps = [
     title: "submit your idea",
     description:
       "Submit your innovative startup idea and get a chance to bring it to life with expert guidance and resources. Let's turn your vision into reality!",
-    image: "/public/assets/images/help_image1.jpg",
-    svg: "/public/assets/vectors/artboard2.png",
+    image: "/assets/images/help_image1.jpg",
+    svg: "/assets/vectors/artboard2.png",
   },
   {
     id: 2,
     title: "does your idea have potential ?",
     description:
       "Wondering if your idea has potential? Share it with us for expert evaluation and feedback, and discover how far your concept can go",
-    image: "/public/assets/images/help_image2.jpg",
-    svg: "/public/assets/vectors/artboard1.svg",
+    image: "/assets/images/help_image2.jpg",
+    svg: "/assets/vectors/artboard1.svg",
   },
   {
     id: 3,
     title: "feedback for your help",
     description:
       "Your feedback matters! Share your thoughts with us so we can improve and offer even better support for your entrepreneurial journey.",
-    image: "/public/assets/images/help_image3.jpg",
-    svg: "/public/assets/vectors/artboard2.png",
+    image: "/assets/images/help_image3.jpg",
+    svg: "/assets/vectors/artboard2.png",
   },
   {
     id: 4,
     title: "provide help to find invester",
     description:
       "We connect you with potential investors to help fund and grow your startup. Let us support you in turning your idea into a successful venture.",
-    image: "/public/assets/images/help_image4.jpg",
+    image: "/assets/images/help_image4.jpg",
     svg: "/assets/vectors/artboard1.svg",
   },
   {
@@ -206,7 +206,7 @@ const helps = [
     title: "help to find inter and internship",
     description:
       "We assist in finding internships and industry connections to help you gain experience and build a strong network for your startup journey.",
-    image: "/public/assets/images/help_image5.jpg",
+    image: "/assets/images/help_image5.jpg",
   },
 ];
 
@@ -217,7 +217,7 @@ const blogs = [
       "How are AgriTech Startups Revolutionising Farming Practices in India",
     date: "29 Feb, 2024 Thursday",
     author: "Dr. Anu Kadyan",
-    imgLink: "/public/assets/images/blog1.png",
+    imgLink: "/assets/images/blog1.png",
   },
   {
     id: 2,
@@ -225,7 +225,7 @@ const blogs = [
       "How are AgriTech Startups Revolutionising Farming Practices in India",
     date: "29 Feb, 2024 Thursday",
     author: "Dr. Anu Kadyan",
-    imgLink: "/public/assets/images/blog2.png",
+    imgLink: "/assets/images/blog2.png",
   },
   {
     id: 3,
@@ -233,7 +233,7 @@ const blogs = [
       "How are AgriTech Startups Revolutionising Farming Practices in India",
     date: "29 Feb, 2024 Thursday",
     author: "Dr. Anu Kadyan",
-    imgLink: "/public/assets/images/blog3.png",
+    imgLink: "/assets/images/blog3.png",
   },
 ];
 
