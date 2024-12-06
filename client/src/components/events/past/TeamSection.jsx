@@ -2,7 +2,7 @@ import React from "react";
 import TeamMember from "./TeamMember";
 import Button from "../../Button";
 
-function TeamSection({ title, teamName }) {
+function TeamSection({ title, teamName, about }) {
   const teamMembers = [
     {
       role: "Developer",
@@ -35,10 +35,7 @@ function TeamSection({ title, teamName }) {
             {teamName}
           </h3>
           <p className="text-xl text-center text-black max-md:max-w-full">
-            Team Synopsis triumphed with innovative solutions, unmatched
-            collaboration, and a relentless drive, showcasing exceptional
-            creativity and strategic thinking to emerge as the ultimate
-            champions.
+            {about}
           </p>
           <div className="max-md:max-w-full">
             <div className="flex gap-x-10 max-md:flex-col">

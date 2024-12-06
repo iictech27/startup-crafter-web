@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TeamSection from "./TeamSection";
 import PastEventHeroCard from "./PastEventHeroCard";
 import Slider from "react-slick";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchPastEventDetail } from "../../../features/events/eventSlice";
 
 function PastEvent() {
+  const dispatch = useDispatch();
+  const { eventDetail } = useSelector((state) => state.event || null);
+  const { pastEvent } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchPastEventDetail(pastEvent));
+  }, [dispatch]);
+
   let settings = {
     dots: true,
     infinite: true,
@@ -17,7 +28,7 @@ function PastEvent() {
 
   return (
     <>
-      <PastEventHeroCard />
+      <PastEventHeroCard {...eventDetail} />
       <div className="mt-20 overflow-hidden mx-auto w-[100vw] lg:w-[60vw] h-[30rem]">
         <Slider {...settings}>
           <img
@@ -68,8 +79,16 @@ function PastEvent() {
             className="object-cover h-full w-full"
           />
         </div>
-        <TeamSection title="Winners" teamName="Team Synopsis" />
-        <TeamSection title="1st Runner up" teamName="Team Genesis" />
+        <TeamSection
+          title="Winners"
+          teamName={eventDetail?.previousWinner?.teamName}
+          {...eventDetail?.previousWinner}
+        />
+        <TeamSection
+          title="1st Runner up"
+          teamName={eventDetail?.firstRunnerUp?.teamName}
+          {...eventDetail?.firstRunnerUp}
+        />
       </section>
     </>
   );

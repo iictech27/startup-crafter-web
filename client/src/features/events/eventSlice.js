@@ -3,6 +3,8 @@ import axios from "axios";
 
 const initialState = {
   events: [],
+  upcomingEvents: [],
+  pastEvents: [],
   eventDetail: null,
   loading: false,
   error: null,
@@ -14,7 +16,7 @@ export const addUpcomingEvent = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "https://startup-crafter-web-server.onrender.com/api/v1/admin/add-upcoming-event",
+      "http://localhost:8000/api/v1/admin/add-upcoming-event",
       data,
       {
         withCredentials: true,
@@ -39,7 +41,7 @@ export const addPastEvent = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     console.log(data);
     const res = await axios.post(
-      "https://startup-crafter-web-server.onrender.com/api/v1/admin/add-past-event",
+      "http://localhost:8000/api/v1/admin/add-past-event",
       data,
       {
         withCredentials: true,
@@ -66,7 +68,7 @@ export const editPastEvent = createAsyncThunk(
 
     try {
       const res = await axios.put(
-        `https://startup-crafter-web-server.onrender.com/api/v1/admin/edit-past-event/${eventId}`,
+        `http://localhost:8000/api/v1/admin/edit-past-event/${eventId}`,
         data,
         {
           withCredentials: true,
@@ -90,7 +92,7 @@ export const editUpcomingEvent = createAsyncThunk(
 
     try {
       const res = await axios.put(
-        `https://startup-crafter-web-server.onrender.com/api/v1/admin/edit-upcoming-event/${eventId}`,
+        `http://localhost:8000/api/v1/admin/edit-upcoming-event/${eventId}`,
         data,
         {
           withCredentials: true,
@@ -112,7 +114,7 @@ export const deleteEvent = createAsyncThunk(
   async (eventId, { rejectWithValue }) => {
     try {
       const res = await axios.delete(
-        `https://startup-crafter-web-server.onrender.com/api/v1/admin/delete-event/${eventId}`,
+        `http://localhost:8000/api/v1/admin/delete-event/${eventId}`,
         {
           withCredentials: true,
         }
@@ -124,46 +126,69 @@ export const deleteEvent = createAsyncThunk(
   }
 );
 
-// Fetch all events
-// export const fetchAllEvents = createAsyncThunk(
-//   "events/fetchAllEvents",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const res = await axios.get("/api/v1/user/get-all-events", {
-//         withCredentials: true,
-//         headers: {
-//           Accept: "application/json",
-//         },
-//       });
-//       return res.data.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data || error.message);
-//     }
-//   }
-// );
+// Fetch upcoming events
+export const fetchUpcomingEvents = createAsyncThunk(
+  "events/fetchUpcomingEvents",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8000/api/v1/user/get-upcoming-events",
+        {
+          withCredentials: true,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
 
-// Fetch event detail
-// export const fetchEventDetail = createAsyncThunk(
-//   "events/fetchEventDetail",
-//   async (eventId, { rejectWithValue }) => {
-//     try {
-//       const res = await axios.get(`/api/v1/user/get-event-detail/${eventId}`, {
-//         withCredentials: true,
-//         headers: {
-//           Accept: "application/json",
-//         },
-//       });
-//       return res.data.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data || error.message);
-//     }
-//   }
-// );
+// Fetch past events
+export const fetchPastEvents = createAsyncThunk(
+  "events/fetchPastEvents",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8000/api/v1/user/get-past-events",
+        {
+          withCredentials: true,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
 
 const eventSlice = createSlice({
   name: "events",
   initialState,
   reducers: {
+    fetchUpcomingEventDetail: (state, action) => {
+      state.eventDetail = state.upcomingEvents.find(
+        (event) => event.slug === action.payload
+      );
+    },
+    fetchPastEventDetail: (state, action) => {
+      state.eventDetail = state.pastEvents.find(
+        (event) => event.slug === action.payload
+      );
+    },
+    resetEvents: (state) => {
+      state.events = [];
+      state.upcomingEvents = [];
+      state.pastEvents = [];
+    },
     resetEventDetail: (state) => {
       state.eventDetail = null;
     },
@@ -172,12 +197,12 @@ const eventSlice = createSlice({
     // add upcoming event
     builder.addCase(addUpcomingEvent.fulfilled, (state, action) => {
       state.loading = false;
-      state.events.push(action.payload);
+      state.error = null;
     });
     // add past event
     builder.addCase(addPastEvent.fulfilled, (state, action) => {
       state.loading = false;
-      state.events.push(action.payload);
+      state.error = null;
     });
 
     // edit event
@@ -199,8 +224,41 @@ const eventSlice = createSlice({
         (event) => event._id !== action.payload
       );
     });
+
+    // Fetch upcoming event
+    builder.addCase(fetchUpcomingEvents.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchUpcomingEvents.fulfilled, (state, action) => {
+      state.loading = false;
+      state.upcomingEvents = action.payload;
+    });
+    builder.addCase(fetchUpcomingEvents.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    // Fetch past event
+    builder.addCase(fetchPastEvents.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchPastEvents.fulfilled, (state, action) => {
+      state.loading = false;
+      state.pastEvents = action.payload;
+    });
+    builder.addCase(fetchPastEvents.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
   },
 });
 
-export const { resetEventDetail } = eventSlice.actions;
+export const {
+  fetchUpcomingEventDetail,
+  fetchPastEventDetail,
+  resetEvents,
+  resetEventDetail,
+} = eventSlice.actions;
 export default eventSlice.reducer;

@@ -1,25 +1,33 @@
 import React from "react";
+import getDate from "../../../utils/getDate";
+import getTime from "../../../utils/getTime";
 
-const EventCard = ({ image, title, startTime, endTime, registerClosesAt }) => {
+const EventCard = ({
+  picture,
+  title,
+  startingDate,
+  endingDate,
+  registrationEnds,
+}) => {
   return (
-    <div className="flex flex-col grow py-4 w-full text-black bg-white rounded-[40px] shadow-[4px_4px_25px_rgba(0,0,0,0.25)] max-md:mt-10 transform transition-transform duration-300 hover:-translate-y-4 hover:shadow-3xl hover:border hover:border-sky-700">
+    <div className="flex flex-col grow py-4 w-full text-black bg-white rounded-[40px] shadow-[4px_4px_25px_rgba(0,0,0,0.25)] max-md:mt-10 transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
       <img
-        src={image}
+        src={picture}
         alt={title}
         className="object-contain self-start w-full aspect-[1.78]"
       />
       <div className="flex flex-col pr-20 pl-5 mt-4 w-full max-md:pr-5">
-        <h3 className="self-start text-2xl tracking-widest">{title}</h3>
+        <h3 className="font-inknut self-start text-2xl">{title}</h3>
         <div className="self-start mt-2 text-lg font-extralight tracking-widest max-md:ml-0.5">
-          {startTime && (
+          {startingDate && (
             <>
-              starts at: <strong>{startTime}</strong>
+              starts at: <strong>{getDate(startingDate)}</strong>
             </>
           )}
           <br />
-          {endTime && (
+          {endingDate && (
             <>
-              ends at: <strong>{endTime}</strong>
+              ends at: <strong>{getDate(endingDate)}</strong>
             </>
           )}
         </div>
@@ -27,7 +35,7 @@ const EventCard = ({ image, title, startTime, endTime, registerClosesAt }) => {
           Register
         </button>
         <div className="self-center mt-4 text-xs font-bold tracking-wider text-red-600">
-          closes at {registerClosesAt}
+          closes on {getDate(registrationEnds)} at {getTime(registrationEnds)}
         </div>
       </div>
     </div>
